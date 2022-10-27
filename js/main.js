@@ -49,9 +49,10 @@
 
     if(movieSearchVal) {
       renderMovies(movies)
-      // moreBtnEl.style.display = "none"
+      moreBtnEl.style.display = "block"
     } else {
       alert('검색을 입력해주세요!')
+      moreBtnEl.style.display = "none"
     }
     
 
@@ -88,6 +89,10 @@
       el.append(h1El, imgEl)
 
       moviesEl.append(el)
+
+      imgEl.addEventListener('error', function() {
+        this.src = '../images/timthumb.jpg'
+      })
 
       // Type 2. 간단한 코드
       // el.innerHTML = /* HTML */`
