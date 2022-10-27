@@ -32,6 +32,11 @@
   width: 100%;
 }
 
+.wrap {
+  display: flex;
+  justify-content: center;
+}
+
 .btn {
   font-size: 40px;
   padding: 20px 40px;
