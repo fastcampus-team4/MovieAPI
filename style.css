@@ -24,9 +24,29 @@
   background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(4px);
   color: white;
+  font-size: 20px;
 }
 .movie img {
   width: 100%;
+}
+.movie img.none {
+  background: url("img/product_empty.png") no-repeat center;
+  width: 100%;
+  height: 100%;
+}
+
+.movie p {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+  padding: 20px 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  color: white;
+  font-size: 20px;
 }
 .actions {
   display: flex;

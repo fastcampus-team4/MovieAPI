@@ -9,10 +9,23 @@
     <script defer src="main.js"></script>
   </head>
   <body>
-    <label for="search">
-      <input id="search" type="text" />
-      <button>검색</button>
-    </label>
+    <form>
+      <label for="search-form">
+        <input class="search-form" id="search-form" type="text" />
+        <button class="search-btn">검색</button>
+      </label>
+    </form>
+
+    <select class="count-form">
+      <option value="1">10</option>
+      <option value="2">20</option>
+      <option value="3">30</option>
+    </select>
+
+    <select class="year-form">
+      <option value="">All Years</option>
+    </select>
+
     <div class="movies">
       <!-- Movie items -->
     </div>
