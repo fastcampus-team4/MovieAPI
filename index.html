@@ -10,6 +10,24 @@
   </head>
   <body>
     <input name="title" id="searching" type="text" placeholder="제목 입력" />
+    <select
+      name="paging"
+      class="paging"
+      id="searching"
+      onchange="selectedPage(this)"
+    >
+      <option value="1">10</option>
+      <option value="2">20</option>
+      <option value="3">30</option>
+    </select>
+    <select
+      name="year"
+      class="year"
+      id="searching"
+      onchange="selectedYear(this)"
+    >
+      <option value="">All Years</option>
+    </select>
     <button type="submit" id="searching">검색</button>
 
     <div class="movies">
