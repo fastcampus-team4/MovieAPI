@@ -27,6 +27,7 @@
 }
 .movie img {
   width: 100%;
+  cursor: pointer;
 }
 .actions {
   display: flex;
