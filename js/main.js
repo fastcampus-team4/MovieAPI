@@ -8,30 +8,43 @@ const searchBtn = document.querySelector('.search-btn');
 const selectTypeEl = document.querySelector('.select-type');
 const selectNumEl = document.querySelector('.select-num');
 const selectYearEl = document.querySelector('.select-year');
-
+const API_KEY = '7035c60c';
 let title = searchInput.value;
 let page = 1;
 
+// https://omdbapi.com/?i=${movies.dataset.id}&apikey=7035c60
+
+// 영화 id 1개로 영화 1개의 정보를 가져와서 (자세한) , 출력해라. < 오늘 목표
 // movie 리스트가 화면에 나타나게하는 함수
-function renderMovies(movies) {
+async function renderMovies(movies) {
+  // movies 여러개를 가져와서 출력하기. < 예전에 완성한거
   if (!movies) {
     alert('검색창에 영화를 입력해주세요!');
     return;
   }
   console.log('movies: ', movies);
-  for (const movie of movies) {
-    const el = document.createElement('div');
-    el.classList.add('movie');
 
-    const h1El = document.createElement('h1');
-    h1El.textContent = movie.Title;
-    h1El.addEventListener('click', () => {
-      console.log('movies.Title: ', movie.Title);
-    });
+  for (const movie of movies) {
+    const el = document.createElement('a');
+    el.classList.add('movie');
+    el.setAttribute('href', 'movie.html');
+    el.dataset.id = movie.imdbID;
+
+    // const el = document.createElement('div');
+    // el.classList.add('movie');
+    // el.dataset.id = movie.imdbID;
+
     const imgEl = document.createElement('img');
     imgEl.src = movie.Poster;
-    el.append(imgEl, h1El);
 
+    const h2El = document.createElement('h2');
+    h2El.textContent = movie.Title;
+
+    h2El.addEventListener('click', () => {
+      console.log('movies.Title: ', movie.Title);
+    });
+
+    el.append(imgEl, h2El);
     moviesEl.append(el);
   }
 }
@@ -45,8 +58,11 @@ for (let i = 2022; i > 1985; i--) {
 }
 
 // api 호출 함수
+// 입력창에 keyword 입력시 해당 keyword에 해당하는 `영화들`을 가져옴
 async function getMovies(title = 'avengers', type = 'movie', page = 1, year = '') {
-  const res = await fetch(`https://omdbapi.com/?apikey=7035c60c&s=${title}&type=${type}&y=${year}&page=${page}`);
+  const url = `https://omdbapi.com/?&apikey=7035c60c&s=${title}&type=${type}&y=${year}&page=${page}`;
+  console.log(url);
+  const res = await fetch(url);
   const { Search: movies } = await res.json();
   return movies;
 }

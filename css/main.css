@@ -10,6 +10,7 @@ form {
   gap: 10px;
   padding: 50px 10px;
 }
+
 .movie {
   --size: 300px;
   width: var(--size);
@@ -18,7 +19,8 @@ form {
   position: relative;
   border-radius: 10px;
 }
-.movie h1 {
+
+.movie h2 {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -29,15 +31,19 @@ form {
   background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(4px);
   color: white;
+  font-size: 24px;
 }
+
 .movie img {
   width: 100%;
 }
+
 .actions {
   display: flex;
   justify-content: center;
   padding-bottom: 50px;
 }
+
 .btn {
   font-size: 40px;
   padding: 20px 40px;
