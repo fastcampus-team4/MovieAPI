@@ -8,10 +8,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/movie.css" />
     <!-- <link rel="stylesheet" href="./movie.css" /> -->
-    <script defer src="./js/main.js"></script>
+    <script defer type="module" src="./js/main.js"></script>
+    <!-- <script defer type="module" src="./js/movie.js"></script> -->
   </head>
   <body>
+    <header>
+      <a href="#search"><button>Search</button></a>
+      <a href="#movie"><button>Movie</button></a>
+      <a href="#about"><button>About</button></a>
+    </header>
     <form name="search" class="search-container">
       <input class="search-input" type="search" />
       <div action="" class="selects">
@@ -32,11 +39,17 @@
       </div>
       <input type="submit" value="search" name="submit" class="search-btn" />
     </form>
+
+    <div class="movie-detail">
+      <!-- Movie details -->
+    </div>
+
     <div class="movies">
       <!-- Movie items -->
     </div>
+
     <div class="actions">
-      <div class="btn">More..</div>
+      <div class="btn__more">More..</div>
     </div>
   </body>
 </html>

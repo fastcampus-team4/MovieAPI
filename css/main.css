@@ -44,11 +44,15 @@ form {
   padding-bottom: 50px;
 }
 
-.btn {
+.btn__more {
   font-size: 40px;
   padding: 20px 40px;
   background-color: orange;
   display: inline-block;
   border-radius: 10px;
   cursor: pointer;
+}
+
+.btn__more.hidden {
+  display: none;
 }

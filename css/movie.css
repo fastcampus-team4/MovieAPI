@@ -1,5 +1,5 @@
 .movie-container {
-  background-color: orange;
+  /* background-color: orange; */
   display: flex;
   gap: 100px;
 }
@@ -19,7 +19,6 @@
   --size: 300px;
   width: var(--size);
   height: calc(var(--size) * 3 / 2);
-  border: 4px solid blue;
 }
 
 .movie-container .movie-info .short-info {
