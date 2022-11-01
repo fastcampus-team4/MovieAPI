@@ -23,7 +23,7 @@ export let page = 1;
 
 // movie 리스트가 화면에 나타나게하는 함수
 export function renderMovies(movies) {
-  // movies 여러개를 가져와서 출력하기. < 예전에 완성한거
+  // movies 여러개를 가져와서 출력하기
   if (!movies) {
     console.log('검색창에 영화를 입력해주세요!');
     return;
@@ -31,6 +31,7 @@ export function renderMovies(movies) {
   // console.log('movies: ', movies);
 
   for (const movie of movies) {
+    // console.log('movie : ', movie);
     const imdbID = movie.imdbID;
     const el = document.createElement('a');
     el.classList.add('movie');
@@ -39,6 +40,12 @@ export function renderMovies(movies) {
 
     const imgEl = document.createElement('img');
     imgEl.src = movie.Poster;
+
+    // Poster가 없을때, 대체이미지 넣어줌
+    if (imgEl.src === 'http://127.0.0.1:5500/N/A') {
+      console.log('imgEl 안나옴!!!!!!!!!!!!!');
+      imgEl.src = '../images/No-Image.png';
+    }
 
     const h2El = document.createElement('h2');
     h2El.textContent = movie.Title;
@@ -91,7 +98,7 @@ for (let i = 2022; i > 1985; i--) {
 export async function getMovies(title = 'avengers', type = 'movie', page = 1, year = '') {
   const url = `https://omdbapi.com/?&apikey=7035c60c&s=${title}&type=${type}&y=${year}&page=${page}`;
   const res = await fetch(url);
-  const { Search: movies } = await res.json();
+  const { Search: movies, totalResult } = await res.json();
   return movies;
 }
 

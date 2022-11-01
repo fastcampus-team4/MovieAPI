@@ -19,35 +19,36 @@ let page = 1;
 export async function getMovieInfo(id = 'tt1285016') {
   // id로 url 입력해서, 가져와라 정보를
   // const id = 'tt1285016';
+  console.log('getMovieInfo 함수 실행!!!');
   const res = await fetch(`https://omdbapi.com/?apikey=7035c60c&i=${id}`);
   const movieInfo = await res.json();
   return movieInfo;
 }
 
 // movie 상세페이지 렌더링
-export async function renderMovieInfo(movieInfo) {
-  let ratings = '';
-  console.log('renderMovieInfo 실행');
-  const { Poster, Title, Released, Runtime, Country, Ratings, Plot, Director, Actors, Genre } = movieInfo;
-  console.log(movieInfo);
-  console.log(Poster);
-  posterEl.style.backgroundImage = `url(${Poster})`;
-  h1El.textContent = Title;
-  releasedEl.textContent = Released;
-  runtimeEl.textContent = Runtime;
-  countryEl.textContent = Country;
+// export async function renderMovieInfo(movieInfo) {
+//   let ratings = '';
+//   console.log('renderMovieInfo 실행');
+//   const { Poster, Title, Released, Runtime, Country, Ratings, Plot, Director, Actors, Genre } = movieInfo;
+//   console.log(movieInfo);
+//   console.log(Poster);
+//   posterEl.style.backgroundImage = `url(${Poster})`;
+//   h1El.textContent = Title;
+//   releasedEl.textContent = Released;
+//   runtimeEl.textContent = Runtime;
+//   countryEl.textContent = Country;
 
-  // Ratings(평점) 출력
-  for (let i = 0; i < 3; i++) {
-    ratings += `${Ratings[i].Source} : ${Ratings[i].Value} `;
-  }
-  ratingsEl.textContent = ratings;
+//   // Ratings(평점) 출력
+//   for (let i = 0; i < 3; i++) {
+//     ratings += `${Ratings[i].Source} : ${Ratings[i].Value} `;
+//   }
+//   ratingsEl.textContent = ratings;
 
-  plotEl.textContent = Plot;
-  directorEl.textContent = Director;
-  actorsEl.textContent = Actors;
-  typeEl.textContent = Genre;
-}
+//   plotEl.textContent = Plot;
+//   directorEl.textContent = Director;
+//   actorsEl.textContent = Actors;
+//   typeEl.textContent = Genre;
+// }
 
 // (async () => {
 //   // 최초 호출!
