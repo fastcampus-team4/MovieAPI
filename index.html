@@ -18,37 +18,74 @@
   </head>
   <body>
     <header>
-      <button><a href="#/search"></a>search</button>
-      <button><a href="#/detail"></a>movie</button>
+      <h1>SearchMovies.com</h1>
+      <div class="btns row justify-content-start">
+        <div class="col-3">
+          <button type="button" class="btn btn-outline-light">
+            <a href="#/search">search</a>
+          </button>
+          <button type="button" class="btn btn-outline-light">
+            <a href="#/detail">movie</a>
+          </button>
+        </div>
+      </div>
 
-      <input
-        name="title"
-        id="searching"
-        type="text"
-        placeholder="제목 입력"
-        onkeyup="if(window.event.keyCode==13){renderSearchList()}"
-      />
-      <select class="paging">
-        <option value="1">10</option>
-        <option value="2">20</option>
-        <option value="3">30</option>
-      </select>
-      <select class="year">
-        <option value="">All Years</option>
-      </select>
-      <button type="submit" id="searching">검색</button>
+      <div class="search">
+        <input
+          name="title"
+          id="searching"
+          type="text"
+          placeholder="제목 입력"
+          onkeyup="if(window.event.keyCode==13){renderSearchList()}"
+          class="form-control"
+        />
+        <select class="paging form-select">
+          <option value="1">10</option>
+          <option value="2">20</option>
+          <option value="3">30</option>
+        </select>
+        <select class="year form-select">
+          <option value="">All Years</option>
+        </select>
+        <button type="submit" id="searching" class="btn btn-outline-light">
+          검색
+        </button>
+      </div>
     </header>
+
     <div class="movies-list">
       <div class="movies">
         <!-- Movie items -->
       </div>
       <div class="actions">
-        <div class="btn more">More..</div>
+        <div class="btn more btn btn-outline-light">More..</div>
       </div>
     </div>
 
-    <div class="movie-detail">
-      <!-- Movie details -->
+    <div class="movie-detail container">
+      <div class="row justify-content-center">
+        <div class="col-4">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/495px-No-Image-Placeholder.svg.png?20200912122019"
+            class="poster"
+          />
+        </div>
+        <div class="col-6">
+          <h1 class="title"></h1>
+          <p class="info"></p>
+          <p class="plot"></p>
+          <strong>Ratings</strong>
+          <p class="ratings"></p>
+          <strong>Actors</strong>
+          <p class="actors"></p>
+          <strong>Director</strong>
+          <p class="director"></p>
+          <strong>Production</strong>
+          <p class="production"></p>
+          <strong>Genre</strong>
+          <p class="genre"></p>
+        </div>
+      </div>
     </div>
   </body>
 </html>

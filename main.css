@@ -1,48 +1,96 @@
+body {
+  background-color: var(--bs-body-color) !important;
+  color: var(--bs-gray-100) !important;
+}
+body a {
+  color: var(--bs-btn-color);
+  text-decoration: none;
+}
+/* header */
+header {
+  padding: 10px 100px;
+}
+header H1 {
+  color: VAR(--bs-gray-100);
+  padding: 50px 0;
+}
+header .btns button:hover a {
+  color: var(--bs-btn-hover-color);
+}
+header .search {
+  padding: 50px 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+header .search input {
+  width: 700%;
+}
+header .search button {
+  width: 100%;
+}
+/* movies */
+
 .movies {
+  min-height: 200px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-  padding: 50px 10px;
+  align-items: center;
+  gap: 50px;
+  padding: 50px 50px 70px;
+  margin: 0 100px;
+  /* background-color: var(--bs-body-color); */
+  background-color: var(--bs-gray-800);
+
+  border-radius: 8px;
+}
+.movies .alert {
+  margin: auto;
+  font-size: 25px;
 }
 .movie {
-  --size: 300px;
-  width: var(--size);
-  height: calc(var(--size) * 3 / 2);
-  overflow: hidden;
   position: relative;
-  border-radius: 10px;
 }
-.movie h1 {
+.movie a {
+  display: block;
+}
+.movie:hover {
+  transform: translateY(-8px);
+  transition: all 0.5s;
+}
+.movie div {
+  display: block;
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  text-align: center;
-  padding: 20px 0;
-  background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(4px);
-  color: white;
+  height: 30px;
+  width: 200px;
+  color: gainsboro;
+  font-size: 20px;
+  /* z-index: 10; */
+  overflow-y: hidden;
 }
 .movie img {
-  width: 100%;
+  --size: 200px;
+  width: var(--size);
+  height: calc(var(--size) * 3 / 2);
+  border-radius: 5px;
+  margin: auto;
   cursor: pointer;
 }
 .actions {
   display: flex;
   justify-content: center;
-  padding-bottom: 50px;
-}
-.btn {
-  font-size: 40px;
-  padding: 20px 40px;
-  background-color: orange;
-  display: inline-block;
-  border-radius: 10px;
-  cursor: pointer;
+  padding: 100px 0;
 }
 .movie-list img {
   width: 10px;
   height: 10px;
+}
+/* movie-detail */
+.movie-detail {
+  padding: 50px 0;
+  background-color: gainsboro;
+  border-radius: 10px;
+  margin: 80px 0 100px;
+  color: var(--bs-gray-800);
 }
