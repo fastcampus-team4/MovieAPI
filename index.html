@@ -15,29 +15,36 @@
   </head>
   <body>
     <header>
-      <a href="#search"><button>Search</button></a>
-      <a href="#movie"><button>Movie</button></a>
-      <a href="#about"><button>About</button></a>
+      <div class="inner">
+        <a href="#" class="logo"><img src="./images/logo2.png" alt="Naver Series" /></a>
+        <ul class="menu">
+          <li><a href="#search">Search</a></li>
+          <li><a href="#movie">Movie</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </div>
     </header>
     <form name="search" class="search-container">
-      <input class="search-input" type="search" />
-      <div action="" class="selects">
-        <select class="select-type" name="" id="">
-          <option value="movie">movie</option>
-          <option value="series">series</option>
-          <option value="episode">episode</option>
-        </select>
-        <select class="select-num" name="" id="">
-          <option value="0">10</option>
-          <option value="1">20</option>
-          <option value="2">30</option>
-        </select>
-        <select class="select-year" name="years" id="">
-          <option value="" selected>All Years</option>
-          <!-- option -->
-        </select>
+      <div class="inner">
+        <input class="search-input" type="search" />
+        <div action="" class="selects">
+          <select class="select-type" name="" id="">
+            <option value="movie">movie</option>
+            <option value="series">series</option>
+            <option value="episode">episode</option>
+          </select>
+          <select class="select-num" name="" id="">
+            <option value="0">10</option>
+            <option value="1">20</option>
+            <option value="2">30</option>
+          </select>
+          <select class="select-year" name="years" id="">
+            <option value="" selected>All Years</option>
+            <!-- option -->
+          </select>
+        </div>
+        <input type="submit" value="search" name="submit" class="search-btn" />
       </div>
-      <input type="submit" value="search" name="submit" class="search-btn" />
     </form>
 
     <div class="movie-detail">

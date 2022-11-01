@@ -1,6 +1,62 @@
+/* Global Set, Common */
+body {
+  background-color: #363636;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  font-family: 'Nanum Gothic', sans-serif;
+  box-sizing: border-box;
+}
+
+img {
+  display: block;
+}
+
+a {
+  text-decoration: none;
+}
+
+.inner {
+  width: 1100px;
+  margin: 0 auto;
+  position: relative;
+}
+
 form {
   display: flex;
   gap: 10px;
+}
+
+/* header */
+header {
+  width: 100%;
+}
+
+header .inner {
+  display: flex;
+  align-items: center;
+}
+
+header .logo {
+  margin-right: 40px;
+}
+
+header .menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+header .menu li {
+  padding: 10px;
+  background-color: #65d561;
+  border-radius: 5px;
+}
+
+header .menu li a {
+  color: ;
 }
 
 .movies {

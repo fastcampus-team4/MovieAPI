@@ -42,10 +42,15 @@ export function renderMovies(movies) {
     imgEl.src = movie.Poster;
 
     // Poster가 없을때, 대체이미지 넣어줌
-    if (imgEl.src === 'http://127.0.0.1:5500/N/A') {
+    if (movie.Poster === 'N/A') {
       console.log('imgEl 안나옴!!!!!!!!!!!!!');
       imgEl.src = '../images/No-Image.png';
     }
+    // Poster가 없을때, 대체이미지 넣어줌 -> 배포할땐 안됨!
+    // if (imgEl.src === 'http://127.0.0.1:5500/N/A') {
+    //   console.log('imgEl 안나옴!!!!!!!!!!!!!');
+    //   imgEl.src = '../images/No-Image.png';
+    // }
 
     const h2El = document.createElement('h2');
     h2El.textContent = movie.Title;

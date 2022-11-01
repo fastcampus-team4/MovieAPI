@@ -40,9 +40,10 @@ export default async function renderMovieDetail(inputId) {
     Poster = '../images/No-Image.png';
   }
 
-  console.log('Ratings[0]', Ratings[0]);
-  // for (let i = 0; i < 3; i++) {
-  //   if (Ratings[i].Source === 'undefined') {
+  // console.log('Ratings', Ratings);
+  // console.log(typeof Ratings[1]);
+  // for (let i = 0; i < Ratings.length; i++) {
+  //   if (!Ratings[i].Source) {
   //     Ratings[i].Source = '';
   //     Ratings[i].Value = '';
   //   }
