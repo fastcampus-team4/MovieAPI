@@ -5,32 +5,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movie Search</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css"
+    />
     <link rel="stylesheet" href="style.css" />
     <script defer src="main.js"></script>
   </head>
   <body>
-    <form>
-      <label for="search-form">
-        <input class="search-form" id="search-form" type="text" />
-        <button class="search-btn">검색</button>
-      </label>
-    </form>
+    <header>
+      <a href="/">홈으로 돌아가기</a>
+      <button><a href="#search">search</a></button>
+      <button><a href="#movie">movie</a></button>
+      <button><a href="#about">about</a></button>
+    </header>
 
-    <select class="count-form">
-      <option value="1">10</option>
-      <option value="2">20</option>
-      <option value="3">30</option>
-    </select>
+    <!-- 검색, 영화 목록 갯수, 연도 -->
+    <div class="forms">
+      <form>
+        <label for="search-form">
+          <input class="search-form" id="search-form" type="text" />
+          <button class="search-btn">검색</button>
+        </label>
+      </form>
 
-    <select class="year-form">
-      <option value="">All Years</option>
-    </select>
+      <select class="count-form">
+        <option value="1">10</option>
+        <option value="2">20</option>
+        <option value="3">30</option>
+      </select>
+
+      <select class="year-form">
+        <option value="">All Years</option>
+      </select>
+    </div>
 
     <div class="movies">
       <!-- Movie items -->
     </div>
+
     <div class="actions">
+      <!-- movre button -->
       <div class="btn">More..</div>
+    </div>
+
+    <div class="info-list">
+      <!-- Movie Infomaition -->
     </div>
   </body>
 </html>
