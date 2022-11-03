@@ -5,7 +5,9 @@ const movieA = document.querySelector('a');
 const moviesListEl = document.querySelector('.movies-list');
 const movieDetailEl = document.querySelector('.movie-detail');
 const searchEl = document.querySelector('.search');
+const searchInputEl = document.querySelector('input#searching');
 
+let title = '';
 let page = 1;
 
 (async () => {
@@ -15,15 +17,20 @@ let page = 1;
 
   // 더보기 버튼 클릭!
   moreBtnEl.addEventListener('click', async () => {
-    page += 1;
+    page++;
     console.log(page);
-    const title = document.querySelector('input#searching').value;
+    // const title = document.querySelector('input#searching').value;
     console.log(title);
     const year = document.querySelector('.year').value;
     console.log(year);
     const movies = await getMovies(title, page, year);
-    console.log(movies);
-    renderMovies(movies);
+    if (!movies) {
+      console.log(title, page, year, movies);
+      alert('더 이상 불러올 목록이 없습니다.');
+    } else {
+      console.log(movies);
+      renderMovies(movies);
+    }
   });
 
   // 검색 버튼 클릭
@@ -59,8 +66,10 @@ async function router() {
 // 검색목록 화면출력
 async function renderSearchList() {
   moviesEl.innerHTML = '';
-  const title = document.querySelector('input#searching').value;
-  const page = document.querySelector('.paging').value;
+  // const searchInputEl = document.querySelector('input#searching');
+  // const title = searchInputEl.value;
+  title = searchInputEl.value;
+  page = document.querySelector('.paging').value;
   const year = document.querySelector('.year').value;
   console.log(title);
   console.log(page);
@@ -72,6 +81,8 @@ async function renderSearchList() {
       renderMovies(movies);
     }
   }
+  searchInputEl.value = null;
+  console.log(title);
 }
 
 // 영화목록 불러오기
@@ -148,7 +159,7 @@ async function getMovie() {
 }
 
 const poster = document.querySelector('.poster');
-const title = document.querySelector('.title');
+const titleInfo = document.querySelector('.title-info');
 const info = document.querySelector('.info');
 const plot = document.querySelector('.plot');
 const ratings = document.querySelector('.ratings');
@@ -163,15 +174,25 @@ function renderMovie(movie) {
   searchEl.style.display = 'none';
   movieDetailEl.style.display = 'block';
 
-  poster.src = movie.Poster === 'N/A' ? poster.src : movie.Poster;
+  poster.src =
+    movie.Poster === 'N/A'
+      ? poster.src
+      : movie.Poster.replace('SX300', 'SX700');
 
-  title.textContent = movie.Title;
+  titleInfo.textContent = movie.Title;
 
-  info.textContent = `${movie.Year} ▪ ${movie.Runtime} ▪ ${movie.Country}`;
+  info.textContent = `${movie.Year} ▪  ${movie.Runtime}  ▪  ${movie.Country}`;
 
   plot.textContent = movie.Plot;
 
-  // ratings.textContent = `Internet Movie Database: ${movie.Ratings[0].Value} Rotten Tomatoes: ${movie.Ratings[1].Value} Metacritic: ${movie.Ratings[2].Value}`;
+  ratings.innerHTML = '';
+  for (i = 0; i < movie.Ratings.length; i++) {
+    const imgEl = document.createElement('img');
+    imgEl.src = `./img/${movie.Ratings[i].Source}.png`;
+    const spanEl = document.createElement('span');
+    spanEl.textContent = `${movie.Ratings[i].Value}`;
+    ratings.append(imgEl, spanEl);
+  }
 
   actors.textContent = movie.Actors;
 
@@ -202,3 +223,32 @@ for (i = 2022; i > 1984; i--) {
   yearOpt.textContent = i;
   selectYear.append(yearOpt);
 }
+
+// 무한스크롤 구현
+
+const infiniteScroll = document.querySelector('.infinite-scroll');
+
+const callback = (entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      (async () => {
+        page++;
+        console.log(page);
+        console.log(title);
+        const year = document.querySelector('.year').value;
+        console.log(year);
+        const movies = await getMovies(title, page, year);
+        if (!movies) {
+          console.log(title, page, year, movies);
+          alert('더 이상 불러올 목록이 없습니다.');
+        } else {
+          console.log(movies);
+          renderMovies(movies);
+        }
+      })();
+    }
+  });
+};
+
+const io = new IntersectionObserver(callback, { threshold: 0.3 });
+io.observe(infiniteScroll);

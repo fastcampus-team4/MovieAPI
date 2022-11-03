@@ -18,7 +18,7 @@
   </head>
   <body>
     <header>
-      <h1>SearchMovies.com</h1>
+      <h1><a href="#/search">SearchMovies.com</a></h1>
       <div class="btns row justify-content-start">
         <div class="col-3">
           <button type="button" class="btn btn-outline-light">
@@ -60,22 +60,24 @@
       <div class="actions">
         <div class="btn more btn btn-outline-light">More..</div>
       </div>
+      <div class="infinite-scroll"></div>
     </div>
 
-    <div class="movie-detail container">
-      <div class="row justify-content-center">
-        <div class="col-4">
+    <div class="movie-detail container-md">
+      <div class="row">
+        <div class="col-5">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/495px-No-Image-Placeholder.svg.png?20200912122019"
             class="poster"
           />
         </div>
-        <div class="col-6">
-          <h1 class="title"></h1>
+
+        <div class="detail-info col-7">
+          <h1 class="title-info"></h1>
           <p class="info"></p>
           <p class="plot"></p>
           <strong>Ratings</strong>
-          <p class="ratings"></p>
+          <div class="ratings"></div>
           <strong>Actors</strong>
           <p class="actors"></p>
           <strong>Director</strong>

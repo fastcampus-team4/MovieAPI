@@ -6,6 +6,7 @@ body a {
   color: var(--bs-btn-color);
   text-decoration: none;
 }
+
 /* header */
 header {
   padding: 10px 100px;
@@ -18,7 +19,7 @@ header .btns button:hover a {
   color: var(--bs-btn-hover-color);
 }
 header .search {
-  padding: 50px 0;
+  padding: 60px 0;
   display: flex;
   justify-content: space-between;
   gap: 10px;
@@ -29,10 +30,10 @@ header .search input {
 header .search button {
   width: 100%;
 }
-/* movies */
 
+/* movies */
 .movies {
-  min-height: 200px;
+  min-height: 300px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -40,7 +41,6 @@ header .search button {
   gap: 50px;
   padding: 50px 50px 70px;
   margin: 0 100px;
-  /* background-color: var(--bs-body-color); */
   background-color: var(--bs-gray-800);
 
   border-radius: 8px;
@@ -66,7 +66,6 @@ header .search button {
   width: 200px;
   color: gainsboro;
   font-size: 20px;
-  /* z-index: 10; */
   overflow-y: hidden;
 }
 .movie img {
@@ -80,17 +79,57 @@ header .search button {
 .actions {
   display: flex;
   justify-content: center;
-  padding: 100px 0;
+  padding: 80px 0;
 }
 .movie-list img {
   width: 10px;
   height: 10px;
 }
+.infinite-scroll {
+  height: 80px;
+  background-color: var(--bs-body-color);
+}
+
 /* movie-detail */
 .movie-detail {
   padding: 50px 0;
   background-color: gainsboro;
   border-radius: 10px;
-  margin: 80px 0 100px;
+  margin-top: 60px;
+  margin-bottom: 100px;
   color: var(--bs-gray-800);
+}
+.movie-detail .row {
+  align-items: center;
+  padding-right: 50px;
+}
+.movie-detail .poster {
+  --size: 400px;
+  width: var(--size);
+  height: calc(var(--size) * 3 / 2);
+  margin: auto;
+  display: block;
+}
+.movie-detail .detail-info .title-info {
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.movie-detail .detail-info .title-info strong {
+  font-size: 100px;
+}
+.movie-detail .detail-info .info {
+  color: midnightblue;
+}
+.movie-detail .detail-info .ratings {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.movie-detail .detail-info .ratings img {
+  height: 30px;
+  display: inline;
+}
+.movie-detail .detail-info .ratings span {
+  margin: 0 10px;
 }
