@@ -17,9 +17,9 @@ const selectNumEl = document.querySelector('.select-num');
 const selectYearEl = document.querySelector('.select-year');
 export const movieDetailEl = document.querySelector('.movie-detail');
 
-const API_KEY = '7035c60c';
 let title = searchInput.value || 'avengers';
 export let page = 1;
+let maxPage = -1;
 
 // movie 리스트가 화면에 나타나게하는 함수
 export function renderMovies(movies) {
@@ -38,19 +38,17 @@ export function renderMovies(movies) {
     el.setAttribute('href', `/#${imdbID}`);
     el.dataset.id = movie.imdbID;
 
+    // 고화질 이미지로 변경
+    let hqPoster = movie.Poster.replace('SX300', 'SX700');
+
     const imgEl = document.createElement('img');
-    imgEl.src = movie.Poster;
+    imgEl.src = hqPoster;
 
     // Poster가 없을때, 대체이미지 넣어줌
     if (movie.Poster === 'N/A') {
       console.log('imgEl 안나옴!!!!!!!!!!!!!');
       imgEl.src = '../images/No-Image.png';
     }
-    // Poster가 없을때, 대체이미지 넣어줌 -> 배포할땐 안됨!
-    // if (imgEl.src === 'http://127.0.0.1:5500/N/A') {
-    //   console.log('imgEl 안나옴!!!!!!!!!!!!!');
-    //   imgEl.src = '../images/No-Image.png';
-    // }
 
     const h2El = document.createElement('h2');
     h2El.textContent = movie.Title;
@@ -103,7 +101,13 @@ for (let i = 2022; i > 1985; i--) {
 export async function getMovies(title = 'avengers', type = 'movie', page = 1, year = '') {
   const url = `https://omdbapi.com/?&apikey=7035c60c&s=${title}&type=${type}&y=${year}&page=${page}`;
   const res = await fetch(url);
-  const { Search: movies, totalResult } = await res.json();
+  const { Search: movies, totalResults } = await res.json();
+  maxPage = Math.ceil(Number(totalResults) / 10);
+  console.log(maxPage);
+  if (page >= maxPage) {
+    // 버튼 삭제
+    moreBtnEl.classList.add('hidden');
+  }
   return movies;
 }
 
@@ -132,11 +136,10 @@ moreBtnEl.addEventListener('click', addBtnMovies);
 
 // 검색 버튼 클릭시, input 값에 대한 영화 리스트 나옴
 searchBtn.addEventListener('click', async (event) => {
-  // 새로고침 방지
-  event.preventDefault();
+  event.preventDefault(); // 새로고침 방지
 
-  title = searchInput.value;
-  // search-input 값 초기화
+  title = searchInput.value; // search-input 값 초기화
+
   searchInput.value = '';
   initMovies(); // movie 리스트 초기화
   initMovieDetails(); // movie 상세페이지 초기화
@@ -145,9 +148,6 @@ searchBtn.addEventListener('click', async (event) => {
   let year = selectYearEl.value;
   let selectNum = selectNumEl.value;
 
-  // console.log('type:', type);
-  // console.log('year:', year);
-  // console.log('selectNum:', selectNum);
   if (title) {
     const movies = await getMovies(title, type, page, year);
     renderMovies(movies);
@@ -165,4 +165,26 @@ searchBtn.addEventListener('click', async (event) => {
   const movies = await getMovies();
   page += 1;
   renderMovies(movies);
+})();
+
+(() => {
+  const io = new IntersectionObserver(
+    (entry, observer) => {
+      // 1. 현재 보이는 target 출력
+      const ioTarget = entry[0].target;
+      // 2. viewport에 target이 보이면 하는 일
+      if (entry[0].isIntersecting) {
+        console.log('현재 보이는 타켓', ioTarget);
+        // 3. 현재 보이는 target 감시
+        io.observe(moreBtnEl);
+        // 4. 더보기버튼함수 실행
+        addBtnMovies();
+      }
+    },
+    {
+      // 5. 타겟이 50% 이상 보이면 실행
+      threshold: 0.5,
+    }
+  );
+  io.observe(moreBtnEl);
 })();

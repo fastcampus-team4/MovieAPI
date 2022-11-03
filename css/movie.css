@@ -5,8 +5,8 @@
 }
 
 .movie-container .movie-info {
-  width: 40%;
-  background-color: aquamarine;
+  width: 70%;
+  background-color: orange;
   font-size: 18px;
 }
 
@@ -31,7 +31,18 @@
 }
 
 .movie-container .movie-info .ratings {
-  background-color: yellow;
+  display: flex;
+  gap: 20px;
+  background-color: grey;
+}
+
+.movie-container .movie-info .ratings .rating {
+  display: flex;
+  gap: 10px;
+}
+
+.movie-container .movie-info .ratings .rating img {
+  height: 30px;
 }
 
 .movie-container .movie-info .plot {

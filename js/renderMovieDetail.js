@@ -31,27 +31,28 @@ export default async function renderMovieDetail(inputId) {
   console.log('movieInfo:', movieInfo);
 
   let { Poster, Title, Released, Runtime, Country, Ratings, Plot, Director, Actors, Genre } = movieInfo;
-  console.log('Poster:', Poster);
 
-  // console.log('posterEl', posterEl);
+  let hqPoster = Poster.replace('SX300', 'SX700');
+  console.log('고화질 Poster:', Poster);
+
   // Poster가 없을때, 대체이미지 넣어줌
   if (Poster === 'N/A') {
     console.log('상세페이지 img 안나옴!!!!!!!!!!!!!');
-    Poster = '../images/No-Image.png';
+    hqPoster = '../images/No-Image.png';
   }
 
-  // console.log('Ratings', Ratings);
-  // console.log(typeof Ratings[1]);
-  // for (let i = 0; i < Ratings.length; i++) {
-  //   if (!Ratings[i].Source) {
-  //     Ratings[i].Source = '';
-  //     Ratings[i].Value = '';
-  //   }
-  // }
+  // Ratings 이미지 및 텍스트 보여줌
+  let ratings = '';
+  for (let i = 0; i < Ratings.length; i++) {
+    console.log(i);
+    ratings += `<div class="rating ${i + 1}"><img src="../images/${Ratings[i].Source}.png"/><span class="rating-name">${
+      Ratings[i].Value
+    }</span></div>`;
+  }
 
   movieDetailEl.innerHTML = /*html*/ `
       <div class="movie-container">
-        <img src="${Poster}" class="poster" />
+        <img src="${hqPoster}" class="poster" />
         <div class="movie-info">
           <h1>${Title}</h1>
           <div class="short-info">
@@ -62,7 +63,7 @@ export default async function renderMovieDetail(inputId) {
           <div class="ratings-box">
             <h3>Ratings</h3>
             <div class="ratings">
-              <span class="rating">${Ratings[0].Source} : ${Ratings[0].Value} </span>
+              ${ratings}
             </div>
           </div>
           <div class="plot">${Plot}</div>
