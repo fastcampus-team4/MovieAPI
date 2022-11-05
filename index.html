@@ -11,10 +11,10 @@
       href="	https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
     />
     <script defer src="./main.js"></script>
-    <!-- <script
+    <script
       defer
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-    ></script> -->
+    ></script>
   </head>
   <body>
     <header>
@@ -57,35 +57,82 @@
       <div class="movies">
         <!-- Movie items -->
       </div>
-      <div class="actions">
-        <div class="btn more btn btn-outline-light">More..</div>
+      <div class="text-center alert_things">
+        <div class="spinner-border hidden" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="text text-center hidden">Search for the movie title !</div>
       </div>
-      <div class="infinite-scroll"></div>
     </div>
 
+    <footer>
+      <div class="actions">
+        <button class="btn more btn btn-outline-light">
+          <span
+            class="spinner-grow spinner-grow-sm hidden"
+            role="status"
+            aria-hidden="true"
+          ></span>
+          <span class="visually-hidden">Loading...</span>
+          More..
+        </button>
+      </div>
+      <div class="bottom"></div>
+    </footer>
+
     <div class="movie-detail container-md">
+      <div class="detail-loading hidden">
+        <div
+          class="spinner-border text-secondary"
+          style="width: 5rem; height: 5rem"
+          role="status"
+        >
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
       <div class="row">
         <div class="col-5">
+          <div class="skeletons hidden">
+            <div class="skeleton_poster"></div>
+          </div>
+
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/495px-No-Image-Placeholder.svg.png?20200912122019"
-            class="poster"
+            class="poster real-info"
           />
         </div>
 
         <div class="detail-info col-7">
-          <h1 class="title-info"></h1>
-          <p class="info"></p>
-          <p class="plot"></p>
-          <strong>Ratings</strong>
-          <div class="ratings"></div>
-          <strong>Actors</strong>
-          <p class="actors"></p>
-          <strong>Director</strong>
-          <p class="director"></p>
-          <strong>Production</strong>
-          <p class="production"></p>
-          <strong>Genre</strong>
-          <p class="genre"></p>
+          <div class="skeletons hidden">
+            <h1 class="skeleton_text skeleton_title_info"></h1>
+            <p class="skeleton_text skeleton_info"></p>
+            <p class="skeleton_text skeleton_plot"></p>
+            <div class="skeleton_text skeleton_strong"></div>
+            <div class="skeleton_text"></div>
+            <div class="skeleton_text skeleton_strong"></div>
+            <div class="skeleton_text"></div>
+            <div class="skeleton_text skeleton_strong"></div>
+            <div class="skeleton_text"></div>
+            <!-- <div class="skeleton_text skeleton_strong"></div>
+            <div class="skeleton_text"></div> -->
+            <!-- <div class="skeleton_text skeleton_strong"></div>
+            <div class="skeleton_text"></div> -->
+          </div>
+          <div class="real-info">
+            <h1 class="title-info"></h1>
+            <p class="info"></p>
+            <p class="plot"></p>
+            <strong>Ratings</strong>
+            <div class="ratings"></div>
+            <strong>Actors</strong>
+            <p class="actors"></p>
+            <strong>Director</strong>
+            <p class="director"></p>
+            <strong>Production</strong>
+            <p class="production"></p>
+            <strong>Genre</strong>
+            <p class="genre"></p>
+          </div>
         </div>
       </div>
     </div>

@@ -6,6 +6,14 @@ const moviesListEl = document.querySelector('.movies-list');
 const movieDetailEl = document.querySelector('.movie-detail');
 const searchEl = document.querySelector('.search');
 const searchInputEl = document.querySelector('input#searching');
+const loadingSpin = document.querySelector('.spinner-border');
+const moreLoadingSpin = document.querySelector('.spinner-grow');
+const alertThingsEl = document.querySelector('.alert_things');
+const textEl = document.querySelector('.text');
+const footerEl = document.querySelector('footer');
+const detailLoadingSpin = document.querySelector('.detail-loading');
+
+let movieEl;
 
 let title = '';
 let page = 1;
@@ -17,6 +25,7 @@ let page = 1;
 
   // 더보기 버튼 클릭!
   moreBtnEl.addEventListener('click', async () => {
+    moreLoadingSpin.classList.remove('hidden');
     page++;
     console.log(page);
     // const title = document.querySelector('input#searching').value;
@@ -24,6 +33,7 @@ let page = 1;
     const year = document.querySelector('.year').value;
     console.log(year);
     const movies = await getMovies(title, page, year);
+    moreLoadingSpin.classList.add('hidden');
     if (!movies) {
       console.log(title, page, year, movies);
       alert('더 이상 불러올 목록이 없습니다.');
@@ -45,16 +55,18 @@ async function router() {
   // console.log(routePath);
   // console.log(routePath.indexOf('#/detail'));
   if (routePath === '') {
-    console.log(routePath);
-    const movies = await getMovies();
-    renderMovies(movies);
+    // console.log(routePath);
+    // const movies = await getMovies();
+    // renderMovies(movies);
+    renderSearchList();
   } else if (routePath.indexOf('#/detail') >= 0) {
     console.log(routePath);
     const movie = await getMovie();
     renderMovie(movie);
   } else if (routePath.indexOf('#/search') >= 0) {
-    const movies = await getMovies();
-    renderMovies(movies);
+    // const movies = await getMovies();
+    // renderMovies(movies);
+    renderSearchList();
   }
 }
 
@@ -65,22 +77,29 @@ async function router() {
 
 // 검색목록 화면출력
 async function renderSearchList() {
-  moviesEl.innerHTML = '';
+  if (moviesEl) {
+    moviesEl.innerHTML = '';
+  }
   // const searchInputEl = document.querySelector('input#searching');
   // const title = searchInputEl.value;
+  textEl.classList.add('hidden');
   title = searchInputEl.value;
   page = document.querySelector('.paging').value;
   const year = document.querySelector('.year').value;
+
+  loadingSpin.classList.remove('hidden');
   console.log(title);
   console.log(page);
-  if (title === '') {
-    alert('제목을 입력해 주세요.');
-  } else {
-    for (i = 1; i <= page; i++) {
-      const movies = await getMovies(title, i, year);
-      renderMovies(movies);
-    }
+  // if (title === '') {
+  //   alert('제목을 입력해 주세요.');
+  // } else {
+  for (i = 1; i <= page; i++) {
+    const movies = await getMovies(title, i, year);
+    renderMovies(movies);
   }
+  // }
+
+  loadingSpin.classList.add('hidden');
   searchInputEl.value = null;
   console.log(title);
 }
@@ -97,19 +116,22 @@ async function getMovies(title = '', page = 1, year = '') {
 // 영화목록 화면 출력하기
 function renderMovies(movies) {
   console.log('목록화면 출력');
+
   moviesListEl.style.display = 'block';
   searchEl.style.display = 'flex';
+  footerEl.style.display = 'block';
   movieDetailEl.style.display = 'none';
 
   if (movies === undefined) {
-    moviesEl.innerHTML = '';
+    // if (moviesEl) {
+    //   moviesEl.innerHTML = '';
+    // }
+
     console.log('movies가 언디파인드');
-    const el = document.createElement('div');
-    el.classList.add('alert');
-    el.textContent = 'Search for the movie title !';
-    moviesEl.append(el);
+    textEl.classList.remove('hidden');
     return;
   }
+
   for (const movie of movies) {
     const el = document.createElement('div');
     const movieHash = document.createElement('a');
@@ -131,6 +153,7 @@ function renderMovies(movies) {
     // Type 2
     const divEl = document.createElement('div');
     divEl.textContent = movie.Title;
+    divEl.classList.add('text-truncate');
     divEl.addEventListener('click', () => {
       console.log(movie.Title);
     });
@@ -141,16 +164,28 @@ function renderMovies(movies) {
         : movie.Poster;
     movieHash.append(imgEl, divEl);
     moviesEl.append(el);
+    movieEl = document.querySelectorAll('.movie');
   }
 }
 
+const realInfo = document.querySelectorAll('.real-info');
+const skeletons = document.querySelectorAll('.skeletons');
+
 // 영화 상세정보 불러오기
 async function getMovie() {
+  moviesListEl.style.display = 'none';
+  footerEl.style.display = 'none';
+  searchEl.style.display = 'none';
+  realInfo.forEach((ele) => (ele.style.display = 'none'));
+  movieDetailEl.style.display = 'block';
+  detailLoadingSpin.classList.remove('hidden');
+  skeletons.forEach((ele) => ele.classList.remove('hidden'));
   const id = location.hash.substr(9) ? location.hash.substr(9) : 'tt2294629';
   const res = await fetch(
     `https://omdbapi.com/?apikey=7035c60c&i=${id}&plot=full`
   );
   const json = await res.json();
+
   if (json.Response === 'True') {
     console.log(json);
     return json;
@@ -170,10 +205,6 @@ const genre = document.querySelector('.genre');
 
 // 상세정보 화면출력
 function renderMovie(movie) {
-  moviesListEl.style.display = 'none';
-  searchEl.style.display = 'none';
-  movieDetailEl.style.display = 'block';
-
   poster.src =
     movie.Poster === 'N/A'
       ? poster.src
@@ -201,6 +232,10 @@ function renderMovie(movie) {
   production.textContent = movie.Production;
 
   genre.textContent = movie.Genre;
+
+  detailLoadingSpin.classList.add('hidden');
+  realInfo.forEach((ele) => (ele.style.display = 'block'));
+  skeletons.forEach((ele) => ele.classList.add('hidden'));
 }
 
 // // 목록갯수 선택(어느페이지까지 불러올지)
@@ -226,18 +261,25 @@ for (i = 2022; i > 1984; i--) {
 
 // 무한스크롤 구현
 
-const infiniteScroll = document.querySelector('.infinite-scroll');
+const bottom = document.querySelector('.bottom');
 
 const callback = (entries) => {
+  // console.log(entries);
   entries.forEach((entry) => {
+    // console.log(entry);
     if (entry.isIntersecting) {
+      console.log(entry);
       (async () => {
+        if (title === '') return;
+        moreLoadingSpin.classList.remove('hidden');
         page++;
         console.log(page);
+        // const title = document.querySelector('input#searching').value;
         console.log(title);
         const year = document.querySelector('.year').value;
         console.log(year);
         const movies = await getMovies(title, page, year);
+        moreLoadingSpin.classList.add('hidden');
         if (!movies) {
           console.log(title, page, year, movies);
           alert('더 이상 불러올 목록이 없습니다.');
@@ -251,4 +293,4 @@ const callback = (entries) => {
 };
 
 const io = new IntersectionObserver(callback, { threshold: 0.3 });
-io.observe(infiniteScroll);
+io.observe(bottom);

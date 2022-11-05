@@ -32,22 +32,24 @@ header .search button {
 }
 
 /* movies */
-.movies {
+.movies-list {
   min-height: 300px;
+  margin: 0 100px;
+  background-color: var(--bs-gray-800);
+  border-radius: 8px;
+  position: relative;
+}
+.movies-list .text {
+  margin: auto;
+  font-size: 30px;
+}
+.movies-list .movies {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 50px;
   padding: 50px 50px 70px;
-  margin: 0 100px;
-  background-color: var(--bs-gray-800);
-
-  border-radius: 8px;
-}
-.movies .alert {
-  margin: auto;
-  font-size: 25px;
 }
 .movie {
   position: relative;
@@ -59,7 +61,7 @@ header .search button {
   transform: translateY(-8px);
   transition: all 0.5s;
 }
-.movie div {
+.movie .text-truncate {
   display: block;
   position: absolute;
   height: 30px;
@@ -76,6 +78,7 @@ header .search button {
   margin: auto;
   cursor: pointer;
 }
+
 .actions {
   display: flex;
   justify-content: center;
@@ -85,7 +88,7 @@ header .search button {
   width: 10px;
   height: 10px;
 }
-.infinite-scroll {
+.bottom {
   height: 80px;
   background-color: var(--bs-body-color);
 }
@@ -98,11 +101,19 @@ header .search button {
   margin-top: 60px;
   margin-bottom: 100px;
   color: var(--bs-gray-800);
+  position: relative;
+}
+.movie-detail .detail-loading {
+  /* text-align: center; */
+  position: absolute;
+  left: calc(50% - 2.5rem);
+  top: calc(50% - 2.5rem);
 }
 .movie-detail .row {
   align-items: center;
   padding-right: 50px;
 }
+
 .movie-detail .poster {
   --size: 400px;
   width: var(--size);
@@ -132,4 +143,34 @@ header .search button {
 }
 .movie-detail .detail-info .ratings span {
   margin: 0 10px;
+}
+
+.skeletons .skeleton_poster {
+  --size: 400px;
+  width: var(--size);
+  height: calc(var(--size) * 3 / 2);
+  margin: auto;
+  display: block;
+  background-color: grey;
+  opacity: 0.5;
+  border-radius: 8px;
+}
+.skeletons .skeleton_text {
+  height: 25px;
+  background-color: grey;
+  opacity: 0.5;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+.skeletons h1.skeleton_text {
+  height: calc(1.375rem + 1.5vw + 20px);
+}
+.skeletons p.skeleton_text.skeleton_plot {
+  height: 250px;
+}
+.skeletons .skeleton_text.skeleton_strong {
+  height: 30px;
+}
+.hidden {
+  display: none !important;
 }
