@@ -13,8 +13,6 @@ const textEl = document.querySelector('.text');
 const footerEl = document.querySelector('footer');
 const detailLoadingSpin = document.querySelector('.detail-loading');
 
-let movieEl;
-
 let title = '';
 let page = 1;
 
@@ -27,11 +25,8 @@ let page = 1;
   moreBtnEl.addEventListener('click', async () => {
     moreLoadingSpin.classList.remove('hidden');
     page++;
-    console.log(page);
-    // const title = document.querySelector('input#searching').value;
-    console.log(title);
     const year = document.querySelector('.year').value;
-    console.log(year);
+    console.log(title, page, year);
     const movies = await getMovies(title, page, year);
     moreLoadingSpin.classList.add('hidden');
     if (!movies) {
@@ -55,25 +50,17 @@ async function router() {
   // console.log(routePath);
   // console.log(routePath.indexOf('#/detail'));
   if (routePath === '') {
-    // console.log(routePath);
-    // const movies = await getMovies();
-    // renderMovies(movies);
-    renderSearchList();
+    const movies = await getMovies();
+    renderMovies(movies);
   } else if (routePath.indexOf('#/detail') >= 0) {
     console.log(routePath);
     const movie = await getMovie();
     renderMovie(movie);
   } else if (routePath.indexOf('#/search') >= 0) {
-    // const movies = await getMovies();
-    // renderMovies(movies);
-    renderSearchList();
+    const movies = await getMovies();
+    renderMovies(movies);
   }
 }
-
-// async function getDetail() {
-//   const movie = await getMovie();
-//   renderMovie(movie);
-// }
 
 // 검색목록 화면출력
 async function renderSearchList() {
@@ -83,24 +70,33 @@ async function renderSearchList() {
   // const searchInputEl = document.querySelector('input#searching');
   // const title = searchInputEl.value;
   textEl.classList.add('hidden');
-  title = searchInputEl.value;
+  loadingSpin.classList.remove('hidden');
+  page = 1;
   page = document.querySelector('.paging').value;
+
+  title = searchInputEl.value;
+  searchInputEl.value = null;
+
   const year = document.querySelector('.year').value;
 
-  loadingSpin.classList.remove('hidden');
   console.log(title);
   console.log(page);
-  // if (title === '') {
-  //   alert('제목을 입력해 주세요.');
-  // } else {
+
   for (i = 1; i <= page; i++) {
     const movies = await getMovies(title, i, year);
+    if (!movies) {
+      if (!title) {
+        alert('제목을 입력해 주세요.');
+      }
+      loadingSpin.classList.add('hidden');
+      // textEl.classList.remove('hidden');
+      return;
+    }
     renderMovies(movies);
   }
-  // }
 
   loadingSpin.classList.add('hidden');
-  searchInputEl.value = null;
+
   console.log(title);
 }
 
@@ -113,6 +109,7 @@ async function getMovies(title = '', page = 1, year = '') {
   console.log(movies, totalResults);
   return movies;
 }
+
 // 영화목록 화면 출력하기
 function renderMovies(movies) {
   console.log('목록화면 출력');
@@ -123,11 +120,8 @@ function renderMovies(movies) {
   movieDetailEl.style.display = 'none';
 
   if (movies === undefined) {
-    // if (moviesEl) {
-    //   moviesEl.innerHTML = '';
-    // }
-
     console.log('movies가 언디파인드');
+    moviesEl.innerHTML = '';
     textEl.classList.remove('hidden');
     return;
   }
@@ -138,7 +132,6 @@ function renderMovies(movies) {
     movieHash.href = `#/detail/${movie.imdbID}`;
     el.append(movieHash);
     el.classList.add('movie');
-    // <div class="movie"></div>
 
     // Type 1
     // el.innerHTML = /* html */ `
@@ -164,7 +157,6 @@ function renderMovies(movies) {
         : movie.Poster;
     movieHash.append(imgEl, divEl);
     moviesEl.append(el);
-    movieEl = document.querySelectorAll('.movie');
   }
 }
 
@@ -233,22 +225,10 @@ function renderMovie(movie) {
 
   genre.textContent = movie.Genre;
 
-  detailLoadingSpin.classList.add('hidden');
   realInfo.forEach((ele) => (ele.style.display = 'block'));
+  detailLoadingSpin.classList.add('hidden');
   skeletons.forEach((ele) => ele.classList.add('hidden'));
 }
-
-// // 목록갯수 선택(어느페이지까지 불러올지)
-// function selectedPage(paging) {
-//   page = paging.value;
-//   console.log(page);
-// }
-
-// // 개봉연도 선택
-// function selectedYear(selectYear) {
-//   year = selectYear.value;
-//   console.log(year);
-// }
 
 // 개봉연도 선택지 만들기
 for (i = 2022; i > 1984; i--) {
@@ -273,11 +253,8 @@ const callback = (entries) => {
         if (title === '') return;
         moreLoadingSpin.classList.remove('hidden');
         page++;
-        console.log(page);
-        // const title = document.querySelector('input#searching').value;
-        console.log(title);
         const year = document.querySelector('.year').value;
-        console.log(year);
+        console.log(page, title, year);
         const movies = await getMovies(title, page, year);
         moreLoadingSpin.classList.add('hidden');
         if (!movies) {

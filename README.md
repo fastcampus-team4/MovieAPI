@@ -1,31 +1,55 @@
-# :clapper: 영화 검색
+# 🎬 **mbdi API 활용 영화검색 사이트**
 
-주어진 API를 활용해 '[완성 예시](https://stupefied-hodgkin-d9d350.netlify.app/)' 처럼 자유롭게 영화 검색 기능을 구현해보세요!
+## 🌟 결과물
 
-#### 과제 기간:
+원본 사이트 https://www.aesop.com/kr/
 
-- 수행 기간: 오늘 ~ 2022.11.16(수) 까지
-- 리뷰 기간: 
-  - 수강생끼리: 11.17(목) ~ 11.22(화)
-  - 리뷰어 1차: 11.17(목) ~ 11.22(화)
-  - 리뷰어 2차: 11.28(월) ~ 11.30(수)
-  
-#### 제출 방법:
+<br/>
 
-`main` 혹은 다른 사람의 브랜치로 절대 병합하지 않도록 주의하세요!    
-혹시 문제가 발생한 경우, 바로 강사에게 알려주세요!
+## 📅 과제기간
 
-1. 현재 깃헙 저장소를 클론!
-2. 확인 가능하도록 본명으로 브랜치 생성! `ParkYoungWoong`
-3. 과제 수행 후 원격 저장소로 푸시! `git push origin ParkYoungWoong`
-4. 현재 깃헙 저장소에서 `main` 브랜치로 Pull Request 생성하면 제출 완료!
-5. Pull Request 설명을 꼼꼼하게 작성!
-  
+2022.10.27.(목) ~ 2022.11.6.(수)
+
+<br/>
+
+## 🛠 사용 기술
+
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white">
+<img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white">
+<img src="https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=Bootstrap&logoColor=white">
+<img src="https://img.shields.io/badge/Javascript-E7DF1E?style=for-the-badge&logo=JavaScript&logoColor=black">
+<img src="https://img.shields.io/badge/github-white?style=for-the-badge&logo=github&logoColor=black">
+
+<br/>
+
+## 구현기능 설명
+
+- html, css를 이용해 전체 레이아웃을 잡았으나, 제 모니터에서 보여지는 px값 기준으로 위치를 잡은 경우가 많아 화면의 크기가 바뀔 때 반응형으로 만들지는 못했습니다.
+- 거의 모든 레이아웃을 `display: flex` 를 활용해서 만들었습니다.
+- 이미지 슬라이드가 필요한 곳곳에 swiper를 활용했습니다.
+- 최상단 '무료배송 배너' 클릭시 나타나는 모달창과 header 메뉴 클릭시 각각 다른 메뉴화면이 나타나도록 js로 구현했습니다.
+- 스크롤을 내렸다 올릴 때 헤더가 나타나도록 구현했습니다.
+- footer의 '이솝 커뮤니케이션'부분 체크가 되지 않거나 이메일이 유효하지 않을 경우 안내메세지를 나타내는 기능을 구현했습니다.
+
+## ✍ 아쉬운 점
+
+- 시멘틱 태그와 BEM방법론 도입하지 못했습니다.
+- 100%에 맞춰 레이아웃을 만들어 화면크기가 바뀌면 레이아웃이 전부 흐트러집니다.(반응형 X)
+- 화면 최상단 '전 구매 무료배송' 배너 클릭시 나타나는 모달 창 여백이 패딩값으로 제어가 안 됩니다. 패딩값을 더하면 콘텐츠가 늘어나지 않고 위로 밀리는 현상?이 나타납니다.
+- css 전처리도구를 활용하지 못한 점이 아쉽습니다.
+
+## ✅ 질문 및 피드백요청
+
+- 레이아웃을 잡다보니 계속 div태그로 감싸서 배치하게 되어 한 섹션의 구조가 너무 복잡해진다고 느꼈습니다. 좀 더 나은 방식이 있는지, 제어가능한 선에서 크게 문제될 것이 없는지 궁금합니다.
+- '전 구매 무료배송' 배너 클릭시 나타나는 창 콘텐츠에 `padding-top` 값을 크게 넣을수록 콘텐츠가 위로 밀려올라가는 현상이 나타납니다. 제가 짠 코드의 구조상 문제인지 궁금합니다.
+- modal.js에서 기능을 구현할 때 버튼 하나하나의 요소를 선택하는 것을 변수에 할당해 줬는데 반복되어 쓰인다면 다 변수에 할당해주는 것이 좋은지, 그 변수가 너무 많아진다면 어떤 효율적인 방법으로 관리할 수 있을지 궁금합니다.
+- 특히 리팩토링 해보는 것이 좋겠다하는 부분 있으면 말씀해주시면 감사하겠습니다!
+
 ## 요구사항
 
-필수 요구사항은 꼭 달성해야 하는 목표로, 수정/삭제는 불가하고 추가는 가능합니다.    
+필수 요구사항은 꼭 달성해야 하는 목표로, 수정/삭제는 불가하고 추가는 가능합니다.  
 선택 요구사항은 단순 예시로, 자유롭게 추가/수정/삭제해서 구현해보세요.  
-각 요구사항은 달성 후 마크다운에서 `- [x]`로 표시하세요.  
+각 요구사항은 달성 후 마크다운에서 `- [x]`로 표시하세요.
 
 ### :exclamation: 필수
 
@@ -46,172 +70,3 @@
 - [ ] 영화 상세정보 포스터를 고해상도로 출력해보세요.(실시간 이미지 리사이징)
 - [ ] 차별화가 가능하도록 프로젝트를 최대한 예쁘게 만들어보세요.
 - [ ] 영화와 관련된 기타 기능도 고려해보세요.
-
-## API 기본 사용법
-
-```curl
-curl https://omdbapi.com/?apikey=7035c60c
-  \ -X 'GET'
-```
-
-## 영화 목록 검색
- 
-영화 목록은 한 번에 최대 10개까지 검색할 수 있습니다.
-
-파라미터 | 설명 | 기본값
----|---|---
-`s` | 검색할 영화 제목(필수!) |  
-`y` | 검색할 개봉연도, 빈값은 전체 검색 | 
-`page` | 검색할 페이지 번호 | `1`
-
-요청 코드 예시:
-
-```js
-async function getMovies(title, year = '', page = 1) {
-  const s = `&s=${title}`
-  const y = `&y=${year}`
-  const p = `&page=${page}`
-  const res = await fetch(`https://omdbapi.com/?apikey=7035c60c${s}${y}${p}`)
-  const json = await res.json()
-  if (json.Response === 'True') {
-    const { Search: movies, totalResults } = json
-    return {
-      movies,
-      totalResults
-    }
-  }
-  return json.Error
-}
-```
-
-응답 데이터 타입 및 예시:
-
-```ts
-interface ResponseValue {
-  Search: Movie[] // 검색된 영화 목록, 최대 10개
-  totalResults: string // 검색된 영화 개수
-  Response: 'True' | 'False' // 요청 성공 여부
-}
-interface Movie {
-  Title: string // 영화 제목
-  Year: string // 영화 개봉연도
-  imdbID: string // 영화 고유 ID
-  Type: string // 영화 타입
-  Poster: string // 영화 포스터 이미지 URL
-}
-```
-
-```json
-{
-  "Search": [
-    {
-      "Title": "Frozen",
-      "Year": "2013",
-      "imdbID": "tt2294629",
-      "Type": "movie",
-      "Poster": "https://m.media-amazon.com/images/M/MV5BMTQ1MjQwMTE5OF5BMl5BanBnXkFtZTgwNjk3MTcyMDE@._V1_SX300.jpg"
-    },
-    {
-      "Title": "Frozen II",
-      "Year": "2019",
-      "imdbID": "tt4520988",
-      "Type": "movie",
-      "Poster": "https://m.media-amazon.com/images/M/MV5BMjA0YjYyZGMtN2U0Ni00YmY4LWJkZTItYTMyMjY3NGYyMTJkXkEyXkFqcGdeQXVyNDg4NjY5OTQ@._V1_SX300.jpg"
-    }
-  ],
-  "totalResults": "338",
-  "Response": "True"
-}
-```
-
-## 영화 상제정보 검색
-
-단일 영화의 상제정보를 검색합니다.
-
-파라미터 | 설명 | 기본값
----|---|---
-`i` | 검색할 영화 ID(필수!) |
-`plot` | 줄거리 길이 | `short`
-
-요청 코드 예시:
-
-```js
-async function getMovie(id) {
-  const res = await fetch(`https://omdbapi.com/?apikey=7035c60c&i=${id}&plot=full`)
-  const json = await res.json()
-  if (json.Response === 'True') {
-    return json
-  }
-  return json.Error
-}
-```
-
-응답 데이터 타입 및 예시:
-
-```ts
-interface ResponseValue {
-  Title: string // 영화 제목
-  Year: string // 영화 개봉연도
-  Rated: string // 영화 등급
-  Released: string // 영화 개봉일
-  Runtime: string // 영화 상영시간
-  Genre: string // 영화 장르
-  Director: string // 영화 감독
-  Writer: string // 영화 작가
-  Actors: string // 영화 출연진
-  Plot: string // 영화 줄거리
-  Language: string // 영화 언어
-  Country: string // 영화 제작 국가
-  Awards: string // 영화 수상 내역
-  Poster: string // 영화 포스터 이미지 URL
-  Ratings: Rating[] // 영화 평점 정보
-  Metascore: string // 영화 메타스코어
-  imdbRating: string // 영화 IMDB 평점
-  imdbVotes: string // 영화 IMDB 투표 수
-  imdbID: string // 영화 고유 ID
-  Type: string // 영화 타입
-  DVD: string // 영화 DVD 출시일
-  BoxOffice: string // 영화 박스오피스
-  Production: string // 영화 제작사
-  Website: string // 영화 공식 웹사이트
-  Response: string // 요청 성공 여부
-}
-interface Rating { // 영화 평점 정보
-  Source: string // 평점 제공 사이트
-  Value: string // 평점
-}
-```
-
-```json
-{
-  "Title": "Frozen",
-  "Year": "2013",
-  "Rated": "PG",
-  "Released": "27 Nov 2013",
-  "Runtime": "102 min",
-  "Genre": "Animation, Adventure, Comedy",
-  "Director": "Chris Buck, Jennifer Lee",
-  "Writer": "Jennifer Lee, Hans Christian Andersen, Chris Buck",
-  "Actors": "Kristen Bell, Idina Menzel, Jonathan Groff",
-  "Plot": "When the newly crowned Queen Elsa accidentally uses her power to turn things into ice to curse her home in infinite winter, her sister Anna teams up with a mountain man, his playful reindeer, and a snowman to change the weather co...",
-  "Language": "English, Norwegian",
-  "Country": "United States",
-  "Awards": "Won 2 Oscars. 82 wins & 60 nominations total",
-  "Poster": "https://m.media-amazon.com/images/M/MV5BMTQ1MjQwMTE5OF5BMl5BanBnXkFtZTgwNjk3MTcyMDE@._V1_SX300.jpg",
-  "Ratings": [
-    { "Source": "Internet Movie Database",  "Value": "7.4/10" },
-    { "Source": "Rotten Tomatoes", "Value": "90%" },
-    { "Source": "Metacritic", "Value": "75/100" }
-  ],
-  "Metascore": "75",
-  "imdbRating": "7.4",
-  "imdbVotes": "620,489",
-  "imdbID": "tt2294629",
-  "Type": "movie",
-  "DVD": "18 Mar 2014",
-  "BoxOffice": "$400,953,009",
-  "Production": "N/A",
-  "Website": "N/A",
-  "Response": "True"
-}
-```
