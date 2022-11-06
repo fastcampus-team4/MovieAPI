@@ -6,9 +6,13 @@ import renderAboutPage from '../js/renderAboutPage.js';
 // 초기화 코드
 let inputId = '#tt2294629';
 const bodyEl = document.querySelector('body');
-const moviesEl = document.querySelector('.movies');
-export const moreBtnEl = document.querySelector('.btn__more');
+export const moviesEl = document.querySelector('.movies');
 
+export const moreBtnContainerEl = document.querySelector('.actions');
+export const moreBtnEl = document.querySelector('.btn__more');
+const moreLoadingEl = document.querySelector('#more-loading');
+
+const searchFormEl = document.querySelector('.search-container');
 const searchInput = document.querySelector('.search-input');
 const searchBtn = document.querySelector('.search-btn');
 
@@ -16,6 +20,9 @@ const selectTypeEl = document.querySelector('.select-type');
 const selectNumEl = document.querySelector('.select-num');
 const selectYearEl = document.querySelector('.select-year');
 export const movieDetailEl = document.querySelector('.movie-detail');
+
+let mask;
+// let loadingImgEl = document.querySelector('#loadingImg');
 
 let title = searchInput.value || 'avengers';
 export let page = 1;
@@ -25,10 +32,9 @@ let maxPage = -1;
 export function renderMovies(movies) {
   // movies 여러개를 가져와서 출력하기
   if (!movies) {
-    console.log('검색창에 영화를 입력해주세요!');
+    alert('검색창에 영화를 입력해주세요!');
     return;
   }
-  // console.log('movies: ', movies);
 
   for (const movie of movies) {
     // console.log('movie : ', movie);
@@ -49,13 +55,23 @@ export function renderMovies(movies) {
       console.log('imgEl 안나옴!!!!!!!!!!!!!');
       imgEl.src = '../images/No-Image.png';
     }
+    const infoEl = document.createElement('div');
+    infoEl.classList.add('info');
+
+    const yearEl = document.createElement('div');
+    yearEl.classList.add('year');
+    yearEl.textContent = movie.Year;
 
     const h2El = document.createElement('h2');
     h2El.textContent = movie.Title;
 
-    el.append(imgEl, h2El);
+    infoEl.append(yearEl, h2El);
+
+    el.append(imgEl, infoEl);
     moviesEl.append(el);
   }
+  // more button 나타내기
+  moreBtnContainerEl.classList.remove('.hidden');
 }
 
 // movie 클릭시 (hash change가 발생될 때), 해당 movie의 상세페이지 렌더링
@@ -64,27 +80,29 @@ window.addEventListener('hashchange', () => {
   const hashValue = location.hash.slice(1); // hashValue 받아옴
   if (hashValue === '') {
     renderSearchPage();
+    // test
+    moviesEl.classList.add('no-result');
+    searchFormEl.classList.remove('hidden');
   } else if (hashValue === 'search') {
     renderSearchPage();
+    searchFormEl.classList.remove('hidden');
     console.log('hashValue : search');
   } else if (hashValue === 'movie') {
     initMovies();
-    // initMovieDetails();
-    console.log('movie로 이동~~!!');
+    initMovieDetails();
+    searchFormEl.classList.add('hidden');
     console.log('hashValue : movie');
     if (inputId) {
-      console.log('hashValue === movie일때');
+      console.log('초기화 inputId');
       renderMovieDetail(inputId);
       console.log('inputId222:', inputId);
     }
     console.log('inputId: ', inputId);
-  } else if (hashValue === 'about') {
-    renderAboutPage();
-    console.log('hashValue : about');
   } else {
     // hash 값을 받은 경우
     console.log('해쉬로 상세페이지 렌더링');
     renderMovieDetail();
+    searchFormEl.classList.add('hidden');
   }
 });
 
@@ -106,7 +124,7 @@ export async function getMovies(title = 'avengers', type = 'movie', page = 1, ye
   console.log(maxPage);
   if (page >= maxPage) {
     // 버튼 삭제
-    moreBtnEl.classList.add('hidden');
+    moreBtnContainerEl.classList.add('hidden');
   }
   return movies;
 }
@@ -116,6 +134,8 @@ export function initMovies() {
   moviesEl.innerHTML = '';
   // page 초기화
   page = 1;
+  // 더보기 버튼 가리기
+  moreBtnContainerEl.classList.add('hidden');
 }
 
 // movie 상세페이지 초기화
@@ -127,10 +147,12 @@ export function initMovieDetails() {
 const addBtnMovies = async () => {
   let type = selectTypeEl.value;
   let year = selectYearEl.value;
+  // let year = selectYearEl.value === 'All Years' ? '' : selectYearEl.value;
+  moreLoadingEl.classList.remove('hidden');
   page += 1;
-
   const movies = await getMovies(title, type, page, year);
   renderMovies(movies);
+  moreLoadingEl.classList.add('hidden');
 };
 moreBtnEl.addEventListener('click', addBtnMovies);
 
@@ -151,6 +173,7 @@ searchBtn.addEventListener('click', async (event) => {
   if (title) {
     const movies = await getMovies(title, type, page, year);
     renderMovies(movies);
+    moreBtnContainerEl.classList.remove('hidden');
     for (let i = 0; i < selectNum; i++) {
       console.log('more작동!!!!!!');
       addBtnMovies();
@@ -176,15 +199,15 @@ searchBtn.addEventListener('click', async (event) => {
       if (entry[0].isIntersecting) {
         console.log('현재 보이는 타켓', ioTarget);
         // 3. 현재 보이는 target 감시
-        io.observe(moreBtnEl);
+        io.observe(moreBtnContainerEl);
         // 4. 더보기버튼함수 실행
         addBtnMovies();
       }
     },
     {
-      // 5. 타겟이 50% 이상 보이면 실행
-      threshold: 0.5,
+      // 5. 타겟이 90% 이상 보이면 실행
+      threshold: 0.9,
     }
   );
-  io.observe(moreBtnEl);
+  io.observe(moreBtnContainerEl);
 })();

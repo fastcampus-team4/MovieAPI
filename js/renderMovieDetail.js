@@ -1,7 +1,8 @@
-import { initMovies, movieDetailEl, moreBtnEl } from '../js/main.js';
+import { initMovies, movieDetailEl, moreBtnContainerEl, moviesEl, getMovies } from '../js/main.js';
 // import { getMovieInfo } from '../js/movie.js';
 
 const posterEl = document.querySelector('.poster');
+const skeletonsEl = document.querySelector('.skeletons');
 
 export async function getMovieInfo(id = 'tt1285016') {
   // id로 url 입력해서, 가져와라 정보를
@@ -12,10 +13,12 @@ export async function getMovieInfo(id = 'tt1285016') {
 
 export default async function renderMovieDetail(inputId) {
   console.log('renderMovieDetail 함수 실행!');
+  skeletonsEl.classList.remove('hidden');
+  moviesEl.classList.add('hidden');
   let id;
   let movieInfo;
-  // moreBtnEl.classList.add('hidden');
 
+  moreBtnContainerEl.classList.add('hidden');
   initMovies(); // movie 리스트 초기화
 
   if (!inputId) {
@@ -28,7 +31,7 @@ export default async function renderMovieDetail(inputId) {
 
   movieInfo = await getMovieInfo(id);
 
-  console.log('movieInfo:', movieInfo);
+  // console.log('movieInfo:', movieInfo);
 
   let { Poster, Title, Released, Runtime, Country, Ratings, Plot, Director, Actors, Genre } = movieInfo;
 
@@ -52,21 +55,23 @@ export default async function renderMovieDetail(inputId) {
 
   movieDetailEl.innerHTML = /*html*/ `
       <div class="movie-container">
-        <img src="${hqPoster}" class="poster" />
-        <div class="movie-info">
-          <h1>${Title}</h1>
-          <div class="short-info">
+        <div class="poster">
+          <img src="${hqPoster}" class="poster" />
+        </div>
+        <div class="specs">
+          <h1 class="title">${Title}</h1>
+          <div class="labels">
             <span class="released">${Released}</span>
             <span class="runtime">${Runtime}</span>
             <span class="country">${Country}</span>
           </div>
+          <div class="plot">${Plot}</div>
           <div class="ratings-box">
             <h3>Ratings</h3>
             <div class="ratings">
               ${ratings}
             </div>
           </div>
-          <div class="plot">${Plot}</div>
           <div class="director-box">
             <h3>Director</h3>
             <div class="director">${Director}</div>
@@ -82,5 +87,6 @@ export default async function renderMovieDetail(inputId) {
         </div>
       </div>
     `;
-  return movieInfo;
+  skeletonsEl.classList.add('hidden');
+  // return movieInfo;
 }

@@ -1,58 +1,143 @@
 .movie-container {
-  /* background-color: orange; */
+  max-width: 1200px;
+  padding: 10px;
   display: flex;
-  gap: 100px;
-}
-
-.movie-container .movie-info {
-  width: 70%;
-  background-color: orange;
-  font-size: 18px;
-}
-
-.movie-container .movie-info h1 {
-  font-size: 26px;
-  color: red;
+  gap: 50px;
+  margin: 30px auto;
 }
 
 .movie-container .poster {
-  --size: 300px;
+  box-shadow: var(--shodow);
+}
+
+.movie-container .poster img {
+  --size: 500px;
   width: var(--size);
   height: calc(var(--size) * 3 / 2);
+  border-radius: 10px;
 }
 
-.movie-container .movie-info .short-info {
+.movie-container .specs {
+  width: 70%;
+  font-size: 18px;
 }
 
-.movie-container .movie-info h3 {
-  margin: 10px 0;
-  color: red;
+.movie-container .specs h1 {
+  font-size: 40px;
+  color: var(--color-green);
   font-weight: 600;
+  margin-bottom: 20px;
 }
 
-.movie-container .movie-info .ratings {
+.movie-container .specs .labels {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.movie-container .specs .labels span:nth-child(2) {
+  background-color: var(--color-green);
+  padding: 2px 10px;
+  border-radius: 10px;
+}
+
+.movie-container .specs .plot {
+  margin-bottom: 20px;
+}
+
+.movie-container .specs h3 {
+  margin: 10px 0;
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.movie-container .specs .ratings {
   display: flex;
   gap: 20px;
-  background-color: grey;
+  margin-bottom: 20px;
 }
 
-.movie-container .movie-info .ratings .rating {
+.movie-container .specs .ratings .rating {
   display: flex;
+  align-items: center;
   gap: 10px;
 }
 
-.movie-container .movie-info .ratings .rating img {
+.movie-container .specs .ratings .rating img {
   height: 30px;
 }
 
-.movie-container .movie-info .plot {
+.movie-container .specs .director {
+  margin-bottom: 20px;
 }
 
-.movie-container .movie-info .director {
+.movie-container .specs .actors {
+  margin-bottom: 20px;
 }
 
-.movie-container .movie-info .actors {
+.movie-container .specs .type {
+  display: inline-block;
+  margin-bottom: 20px;
+  background-color: rgb(206, 212, 218, 0.1);
+  padding: 5px 10px;
+  border-radius: 10px;
 }
 
-.movie-container .movie-info .type {
+/* skeleton */
+.skeletons {
+  display: flex;
+  max-width: 1200px;
+  padding: 10px;
+  gap: 50px;
+  margin: auto;
+}
+
+.skeletons .poster {
+  --size: 500px;
+  width: var(--size);
+  height: calc(var(--size) * 3 / 2);
+  flex-shrink: 0;
+}
+
+.skeletons .skeleton {
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.skeletons .specs {
+  flex-grow: 1;
+}
+
+.skeletons .loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.skeletons .skeleton.title {
+  width: 70%;
+  height: 70px;
+}
+
+.skeletons .skeleton.spec {
+  width: 60%;
+  height: 50px;
+  margin-top: 20px;
+}
+
+.skeletons .skeleton.plot {
+  width: 100%;
+  height: 200px;
+  margin-top: 20px;
+}
+
+.skeletons .skeleton.etc {
+  width: 50%;
+  height: 50px;
+  margin-top: 20px;
+}
+.hidden {
+  display: none;
 }
