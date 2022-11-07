@@ -64,38 +64,46 @@
       </div>
     </form>
 
-    <!-- 영화 상세페이지 스켈레톤 -->
-    <div class="skeletons hidden">
-      <div class="loading">
-        <div class="spinner-border spinner-border-sm" role="status"></div>
+    <div class="inner">
+      <!-- 영화 상세페이지 스켈레톤 -->
+      <div class="skeletons hidden">
+        <div class="loading">
+          <div class="spinner-border spinner-border-sm" role="status"></div>
+        </div>
+
+        <div class="skeleton poster"></div>
+        <div class="specs">
+          <div class="skeleton title"></div>
+          <div class="skeleton spec"></div>
+          <div class="skeleton plot"></div>
+          <div class="skeleton etc"></div>
+          <div class="skeleton etc"></div>
+          <div class="skeleton etc"></div>
+        </div>
       </div>
 
-      <div class="skeleton poster"></div>
-      <div class="specs">
-        <div class="skeleton title"></div>
-        <div class="skeleton spec"></div>
-        <div class="skeleton plot"></div>
-        <div class="skeleton etc"></div>
-        <div class="skeleton etc"></div>
-        <div class="skeleton etc"></div>
+      <!-- 영화 상세페이지 -->
+      <div class="movie-detail">
+        <!-- Movie details -->
       </div>
-    </div>
 
-    <!-- 영화 상세페이지 -->
-    <div class="movie-detail">
-      <!-- Movie details -->
-    </div>
-
-    <!-- 메인 페이지 -->
-    <div class="movies">
-      <!-- Movie items -->
+      <!-- 메인 페이지 -->
+      <div class="movies">
+        <!-- Movie items -->
+      </div>
     </div>
 
     <div class="actions">
-      <div class="btn__more btn__more--green">
+      <div class="btn__more btn__more--green hidden">
         <span>More</span>
         <div class="spinner-border spinner-border-sm" role="status" id="more-loading"></div>
       </div>
     </div>
+
+    <footer>
+      <a href="">
+        <span>OMDbAPI<span>.COM</span></span>
+      </a>
+    </footer>
   </body>
 </html>

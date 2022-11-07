@@ -1,7 +1,6 @@
-import { initMovies, movieDetailEl, moreBtnContainerEl, moviesEl, getMovies } from '../js/main.js';
-// import { getMovieInfo } from '../js/movie.js';
+import { movieDetailEl, moreBtnContainerEl, moviesEl, footerEl } from '../js/main.js';
+import { initMovies } from '../js/initialization.js';
 
-const posterEl = document.querySelector('.poster');
 const skeletonsEl = document.querySelector('.skeletons');
 
 export async function getMovieInfo(id = 'tt1285016') {
@@ -15,10 +14,12 @@ export default async function renderMovieDetail(inputId) {
   console.log('renderMovieDetail 함수 실행!');
   skeletonsEl.classList.remove('hidden');
   moviesEl.classList.add('hidden');
+  moreBtnContainerEl.classList.add('hidden');
+  // footerEl.classList.add('hidden');
+
   let id;
   let movieInfo;
 
-  moreBtnContainerEl.classList.add('hidden');
   initMovies(); // movie 리스트 초기화
 
   if (!inputId) {
@@ -88,5 +89,4 @@ export default async function renderMovieDetail(inputId) {
       </div>
     `;
   skeletonsEl.classList.add('hidden');
-  // return movieInfo;
 }
