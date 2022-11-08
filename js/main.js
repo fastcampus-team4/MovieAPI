@@ -32,42 +32,40 @@ export let maxPage = -1;
 // 해쉬 바뀔 때 라우팅 효과 주기
 window.addEventListener('hashchange', () => {
   const hashValue = location.hash.slice(1); // hashValue 받아옴
-  console.log('해쉬값:', hashValue);
+  // console.log('해쉬값:', hashValue);
   initMovies();
   if (hashValue === '') {
-    page = 1;
+    // page = 1;
+    // initMovies();
+    // initMovieDetails();
     renderSearchPage();
+    // moviesEl.classList.remove('hidden');
     searchFormEl.classList.remove('hidden');
     moviesEl.classList.remove('search');
     footerEl.classList.remove('hidden');
     infiniteScroll = false; // 무한스크롤 작동 ❌
   } else if (hashValue === 'search') {
     page = 1;
-    initMovies();
     renderSearchPage();
     footerEl.classList.remove('hidden');
     searchFormEl.classList.remove('hidden');
-    console.log('hashValue : search');
+    // console.log('hashValue : search');
     infiniteScroll = false; // 무한스크롤 작동 ❌
   } else if (hashValue === 'movie') {
-    // initMovies();
-    // initMovieDetails();
     infiniteScroll = false; // 무한스크롤 작동 ❌
     searchFormEl.classList.add('hidden');
-    // footerEl.classList.add('hidden');
-    console.log('hashValue : movie');
+    // console.log('hashValue : movie');
     if (inputId) {
-      console.log('초기화 inputId', inputId);
+      // console.log('초기화 inputId', inputId);
       renderMovieDetail(inputId);
     }
-    console.log('inputId: ', inputId);
+    // console.log('inputId: ', inputId);
   } else {
     // hash 값을 받은 경우
     infiniteScroll = false; // 무한스크롤 작동 ❌
-    console.log('해쉬로 상세페이지 렌더링');
+    // console.log('해쉬로 상세페이지 렌더링');
     renderMovieDetail();
     searchFormEl.classList.add('hidden');
-    // footerEl.classList.remove('hidden');
     // inputId = hashValue;
   }
 });
@@ -112,12 +110,11 @@ searchBtn.addEventListener('click', async (event) => {
   let selectNum = selectNumEl.value;
 
   if (title) {
-    // console.log(title, typeof title);
     const movies = await getMovies(title, type, page, year);
     renderMovies(movies);
     moreBtnEl.classList.remove('hidden');
     for (let i = 0; i < selectNum; i++) {
-      console.log('more작동!!!!!!');
+      // console.log('more작동!!!!!!');
       addBtnMovies();
     }
   } else {
@@ -132,7 +129,7 @@ const io = new IntersectionObserver(
     const ioTarget = entry[0].target;
     // 2. viewport에 target이 보이면 하는 일
     if (entry[0].isIntersecting && infiniteScroll) {
-      console.log('현재 보이는 타켓', ioTarget);
+      // console.log('현재 보이는 타켓', ioTarget);
       // 3. 현재 보이는 target 감시
       io.observe(footerEl);
       // 4. 더보기버튼함수 실행

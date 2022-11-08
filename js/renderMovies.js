@@ -24,7 +24,7 @@ export default function renderMovies(movies) {
 
     // Poster가 없을때, 대체이미지 넣어줌
     if (movie.Poster === 'N/A') {
-      console.log('imgEl 안나옴!!!!!!!!!!!!!');
+      // console.log('imgEl 안나옴!!!!!!!!!!!!!');
       imgEl.src = '../images/No-Image.png';
     }
     const infoEl = document.createElement('div');

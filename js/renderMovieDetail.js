@@ -11,7 +11,7 @@ export async function getMovieInfo(id = 'tt1285016') {
 }
 
 export default async function renderMovieDetail(inputId) {
-  console.log('renderMovieDetail 함수 실행!');
+  // console.log('renderMovieDetail 함수 실행!');
   skeletonsEl.classList.remove('hidden');
   moviesEl.classList.add('hidden');
   moreBtnContainerEl.classList.add('hidden');
@@ -24,7 +24,7 @@ export default async function renderMovieDetail(inputId) {
 
   if (!inputId) {
     id = location.hash.slice(1); // id 받아옴
-    console.log('id받아옴~~!!');
+    // console.log('id받아옴~~!!');
   } else {
     console.log('typeof: ', typeof inputId);
     id = inputId.slice(1);
@@ -37,18 +37,18 @@ export default async function renderMovieDetail(inputId) {
   let { Poster, Title, Released, Runtime, Country, Ratings, Plot, Director, Actors, Genre } = movieInfo;
 
   let hqPoster = Poster.replace('SX300', 'SX700');
-  console.log('고화질 Poster:', Poster);
+  // console.log('고화질 Poster:', Poster);
 
   // Poster가 없을때, 대체이미지 넣어줌
   if (Poster === 'N/A') {
-    console.log('상세페이지 img 안나옴!!!!!!!!!!!!!');
+    // console.log('상세페이지 img 안나옴!!!!!!!!!!!!!');
     hqPoster = '../images/No-Image.png';
   }
 
   // Ratings 이미지 및 텍스트 보여줌
   let ratings = '';
   for (let i = 0; i < Ratings.length; i++) {
-    console.log(i);
+    // console.log(i);
     ratings += `<div class="rating ${i + 1}"><img src="../images/${Ratings[i].Source}.png"/><span class="rating-name">${
       Ratings[i].Value
     }</span></div>`;
