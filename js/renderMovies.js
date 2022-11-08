@@ -1,15 +1,21 @@
-import { moviesEl, moreBtnEl } from '../js/main.js';
-
 // movie 리스트가 화면에 나타나게하는 함수
-export default function renderMovies(movies) {
+export default function renderMovies(moviesEl, movies, moreBtnEl) {
+  console.log('movies', movies);
   moviesEl.classList.add('search');
   // movies 여러개를 가져와서 출력하기
   if (!movies) {
     console.log('영화가 존재하지 않음');
     return;
   }
-  for (const movie of movies) {
-    // console.log('movie : ', movie);
+  if (movies.movies === undefined) {
+    alert('영화가 존재하지 않음');
+    moviesEl.classList.remove('search');
+    moreBtnEl.classList.add('hidden');
+    return;
+  }
+  for (const movie of movies.movies) {
+    console.log('movie : ', movie);
+    moreBtnEl.classList.remove('hidden');
     const imdbID = movie.imdbID;
     const el = document.createElement('a');
     el.classList.add('movie');
@@ -42,7 +48,5 @@ export default function renderMovies(movies) {
     el.append(imgEl, infoEl);
     moviesEl.append(el);
   }
-  // more button & footer 나타내기
   moreBtnEl.classList.remove('hidden');
-  // footerEl.classList.remove('hidden');
 }

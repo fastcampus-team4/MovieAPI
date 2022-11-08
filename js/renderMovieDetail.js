@@ -1,54 +1,50 @@
-import { movieDetailEl, moreBtnContainerEl, moviesEl, footerEl } from '../js/main.js';
 import { initMovies } from '../js/initialization.js';
 
-const skeletonsEl = document.querySelector('.skeletons');
-
 export async function getMovieInfo(id = 'tt1285016') {
-  // id로 url 입력해서, 가져와라 정보를
+  // id로 url 입력해서, 영화 상세 정보를 가져오기!
   const res = await fetch(`https://omdbapi.com/?apikey=7035c60c&i=${id}`);
   const movieInfo = await res.json();
   return movieInfo;
 }
 
-export default async function renderMovieDetail(inputId) {
-  // console.log('renderMovieDetail 함수 실행!');
+export default async function renderMovieDetail(
+  inputId,
+  page,
+  moviesEl,
+  moreBtnEl,
+  moreBtnContainerEl,
+  skeletonsEl,
+  movieDetailEl
+) {
   skeletonsEl.classList.remove('hidden');
   moviesEl.classList.add('hidden');
   moreBtnContainerEl.classList.add('hidden');
-  // footerEl.classList.add('hidden');
 
   let id;
   let movieInfo;
 
-  initMovies(); // movie 리스트 초기화
+  initMovies(page, moviesEl, moreBtnEl); // movie 리스트 초기화
 
   if (!inputId) {
-    id = location.hash.slice(1); // id 받아옴
-    // console.log('id받아옴~~!!');
+    id = location.hash.replace('#', ''); // id 받아옴
   } else {
-    console.log('typeof: ', typeof inputId);
-    id = inputId.slice(1);
+    id = inputId.replace('#', '');
   }
 
   movieInfo = await getMovieInfo(id);
 
-  // console.log('movieInfo:', movieInfo);
-
   let { Poster, Title, Released, Runtime, Country, Ratings, Plot, Director, Actors, Genre } = movieInfo;
 
   let hqPoster = Poster.replace('SX300', 'SX700');
-  // console.log('고화질 Poster:', Poster);
 
   // Poster가 없을때, 대체이미지 넣어줌
   if (Poster === 'N/A') {
-    // console.log('상세페이지 img 안나옴!!!!!!!!!!!!!');
     hqPoster = '../images/No-Image.png';
   }
 
   // Ratings 이미지 및 텍스트 보여줌
   let ratings = '';
   for (let i = 0; i < Ratings.length; i++) {
-    // console.log(i);
     ratings += `<div class="rating ${i + 1}"><img src="../images/${Ratings[i].Source}.png"/><span class="rating-name">${
       Ratings[i].Value
     }</span></div>`;

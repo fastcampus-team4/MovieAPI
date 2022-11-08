@@ -1,16 +1,11 @@
-import { moviesEl, page as pg, moreBtnEl, movieDetailEl } from '../js/main.js';
-
 // movie 리스트 초기화
-export function initMovies() {
-  let page = pg;
+export function initMovies(page, moviesEl, moreBtnEl) {
   moviesEl.innerHTML = '';
-  // page 초기화
-  page = 1;
-  // 더보기 버튼 가리기
-  moreBtnEl.classList.add('hidden');
+  page.value = 1; // page 초기화
+  moreBtnEl.classList.add('hidden'); // 더보기 버튼 가리기
 }
 
 // movie 상세페이지 초기화
-export function initMovieDetails() {
+export function initMovieDetails(movieDetailEl) {
   movieDetailEl.innerHTML = '';
 }
