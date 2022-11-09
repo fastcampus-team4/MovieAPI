@@ -23,7 +23,7 @@ export default async function renderMovieDetail(
   let id;
   let movieInfo;
 
-  initMovies(page, moviesEl, moreBtnEl); // movie 리스트 초기화
+  initMovies(moviesEl, moreBtnEl); // movie 리스트 초기화
 
   if (!inputId) {
     id = location.hash.replace('#', ''); // id 받아옴

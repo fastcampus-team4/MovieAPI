@@ -1,6 +1,5 @@
 // movie 리스트가 화면에 나타나게하는 함수
 export default function renderMovies(moviesEl, movies, moreBtnEl) {
-  console.log('movies', movies);
   moviesEl.classList.add('search');
   // movies 여러개를 가져와서 출력하기
   if (!movies) {
@@ -14,7 +13,6 @@ export default function renderMovies(moviesEl, movies, moreBtnEl) {
     return;
   }
   for (const movie of movies.movies) {
-    console.log('movie : ', movie);
     moreBtnEl.classList.remove('hidden');
     const imdbID = movie.imdbID;
     const el = document.createElement('a');

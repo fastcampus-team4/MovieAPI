@@ -25,8 +25,9 @@ const skeletonsEl = document.querySelector('.skeletons');
 
 let inputId = '#tt2294629';
 let infiniteScroll = false; // 무한스크롤 제어
-let title = searchInput.value; //
-const page = { value: 1 }; // let page = 1;
+let title = searchInput.value;
+let page = 1;
+// const page = { value: 1 }; // let page = 1;
 let maxPage = -1;
 
 // movie 클릭시 (hash change가 발생될 때), 해당 movie의 상세페이지 렌더링
@@ -34,16 +35,16 @@ let maxPage = -1;
 window.addEventListener('hashchange', async () => {
   const hashValue = location.hash.replace('#', ''); // hashValue 받아옴
   // console.log('해쉬값:', hashValue);
-  initMovies(page, moviesEl, moreBtnEl);
+  initMovies(moviesEl, moreBtnEl);
   if (hashValue === '') {
-    // page.value = 1;
+    // page = 1;
     // initMovies();
     // initMovieDetails(movieDetailEl);
     renderSearchPage(page, moreBtnEl, moviesEl, footerEl, moreBtnContainerEl, movieDetailEl);
     searchFormEl.classList.remove('hidden');
     infiniteScroll = false;
   } else if (hashValue === 'search') {
-    page.value = 1;
+    // page = 1;
     renderSearchPage(page, moreBtnEl, moviesEl, footerEl, moreBtnContainerEl, movieDetailEl);
     footerEl.classList.remove('hidden');
     searchFormEl.classList.remove('hidden');
@@ -77,21 +78,22 @@ const addBtnMovies = async () => {
   let type = selectTypeEl.value;
   let year = selectYearEl.value;
   moreLoadingEl.classList.remove('hidden');
+  page += 1;
 
   const movies = await getMovies(title, type, page, year);
-
   maxPage = Math.ceil(Number(movies.total) / 10);
+
   // console.log('maxPage', maxPage);
   // console.log('page', page);
+
+  renderMovies(moviesEl, movies, moreBtnEl);
+
   if (page >= maxPage) {
     console.log('last page!');
     moreBtnContainerEl.classList.add('hidden');
+    infiniteScroll = false;
     return;
-  } else {
-    page += 1;
   }
-
-  renderMovies(moviesEl, movies, moreBtnEl);
   moreLoadingEl.classList.add('hidden');
 };
 moreBtnEl.addEventListener('click', addBtnMovies);
@@ -99,11 +101,16 @@ moreBtnEl.addEventListener('click', addBtnMovies);
 // 검색 버튼 클릭시, input 값에 대한 영화 리스트 나옴
 searchBtn.addEventListener('click', async (event) => {
   event.preventDefault(); // 새로고침 방지
-  infiniteScroll = true; // 무한스크롤 작동
+
+  page = 1;
+
+  infiniteScroll = true; // 무한스크롤 작동 !!!!
+
   title = searchInput.value; // search-input 값 초기화
 
   searchInput.value = '';
-  initMovies(page, moviesEl, moreBtnEl); // movie 리스트 초기화
+
+  initMovies(moviesEl, moreBtnEl); // movie 리스트 초기화
   initMovieDetails(movieDetailEl); // movie 상세페이지 초기화
 
   let type = selectTypeEl.value;
@@ -114,6 +121,7 @@ searchBtn.addEventListener('click', async (event) => {
     const movies = await getMovies(title, type, page, year);
     renderMovies(moviesEl, movies, moreBtnEl);
     // moreBtnEl.classList.remove('hidden');
+
     for (let i = 0; i < selectNum; i++) {
       addBtnMovies();
     }
