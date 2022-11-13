@@ -1,19 +1,144 @@
+/* Header */
+header{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+header .inner{
+  display: flex;
+}
+header .inner{
+  width: 90%;
+}
+header .inner .logo img{
+  width: 80px;
+  margin-right: 15px;
+}
+header .inner .gnb{
+  display: flex;
+  column-gap: 15px;
+  align-items: center;
+  margin-top: 15px;
+}
+header .inner .gnb li{
+  padding: 13px 16px;
+  color: #347AD4;
+  font-weight: bold;
+}
+header .inner .gnb li:hover{
+  background-color: #347AD4;
+  color: #fff;
+  border-radius: 4px;
+}
+/* Main */
+main .story-card {
+  padding: 75px;
+}
+main .story-card .inner{
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+main .story-card .inner h1{
+  font-size: 3.125rem;
+  font-weight: bold;
+  color: #a2a3a3;
+}
+main .story-card .inner h2{
+  font-size: 1.825rem;
+  font-weight: bold;
+  color: #bbbdc0;
+}
+main .search-container {
+  display: flex;
+  row-gap: 30px;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  align-items: center;
+  width: 80%;
+}
+main .search-container h3{
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #032a52;
+}
+main .search-container .user-input {
+  display: flex;
+  column-gap: 10px;
+  justify-content: center;
+  margin: auto;
+  width: 100%;
+}
+main .search-container .user-input form input {
+  width: 45vw;
+  height: 60px;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  padding-left: 15px;
+  font-size: 1.5vw;
+}
+main .search-container .user-input select {
+  box-sizing: border-box;
+  padding-left: 10px;
+  padding-right: 30px;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  width: 8vw;
+  height: 60px;
+}
+main .search-container .user-input button {
+  border-radius: 0.25rem;
+  width: 8vw;
+  height: 60px;
+  background-color: #347AD4;
+  color: #fff;
+  font-size: 1.4vw;
+}
+.movies-container{
+  position: relative;
+}
 .movies {
+  width: 80%;
+  box-sizing: border-box;
+  margin: 20px auto;
+  border-radius: 4px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-  padding: 50px 10px;
+  padding: 20px 10px;
+  background-color: #e9ecf0;
+  color: #b0b0b0;
 }
-.movie {
-  --size: 300px;
+
+.movies-loading{
+  color: #a2a3a3;
+  font-weight: bold;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+}
+.movies p {
+  display: flex;
+  align-items: center;
+}
+main .movies .movie {
+  --size: 200px;
   width: var(--size);
   height: calc(var(--size) * 3 / 2);
   overflow: hidden;
   position: relative;
   border-radius: 10px;
 }
-.movie h1 {
+main .movies .movie:hover {
+  transform:scale(1.02);
+  transition: all .5s;
+  border: 5px solid #ced4da;
+}
+main .movies .movie h1 {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -25,19 +150,163 @@
   backdrop-filter: blur(4px);
   color: white;
 }
-.movie img {
+main .movies .movie img {
   width: 100%;
 }
-.actions {
+main .movie-detail {
+  margin-top: 30px;
+}
+main .movie-detail .movie-container {
+  display: flex;
+  column-gap: 60px;
+  width: 90%;
+  margin: auto;
+}
+main .movie-detail .movie-container .img-box img{
+  width: 35vw;
+  border-radius: 10px;
+}
+main .movie-detail .movie-container .movie-content{
+  display: grid;
+  grid-row-gap: 20px;
+}
+main .movie-detail .movie-container .movie-content .title{
+  font-size: 5vw;
+  font-weight: bold;
+}
+main .movie-detail .movie-container .movie-content .sum{
+  color: #347AD4;
+}
+main .movie-detail .movie-container .movie-content .plot{
+  line-height: 1.5;
+  color:#6c757d;
+}
+main .movie-detail .movie-container .movie-content .ratings h3{
+  font-size: 1.7vw;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+main .movie-detail .movie-container .movie-content .ratings .rating-list{
+  display: flex;
+}
+main .movie-detail .movie-container .movie-content .ratings .rating{
+  display: flex;
+  column-gap: 10px;
+  align-items: center;
+  margin-right: 15px;
+  color:#6c757d;
+}
+main .movie-detail .movie-container .movie-content .ratings .rating:nth-child(1) img{
+  width: 4.2vw;
+
+}
+main .movie-detail .movie-container .movie-content .ratings .rating:nth-child(2) img{
+  width: 5.8vw;
+
+}
+main .movie-detail .movie-container .movie-content .ratings .rating:nth-child(3) img{
+  width: 9vw;
+
+}
+main .movie-detail .movie-container .movie-content .actors h3{
+  font-size: 1.7vw;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+main .movie-detail .movie-container .movie-content .director h3{
+  font-size: 1.7vw;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+main .movie-detail .movie-container .movie-content .production h3{
+  font-size: 1.7vw;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+main .movie-detail .movie-container .movie-content .genre h3{
+  font-size: 1.7vw;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+main .actions {
   display: flex;
   justify-content: center;
   padding-bottom: 50px;
 }
 .more-btn {
-  font-size: 40px;
-  padding: 20px 40px;
-  background-color: orange;
-  display: inline-block;
+  width: 4vw;
+  font-size: 1.5vw;
+  padding: 10px 20px;
+  margin: auto;
+  background-color: #347AD4;
+  color: #fff;
   border-radius: 10px;
   cursor: pointer;
+}
+
+.loader-containter{
+  display: flex;
+  justify-content: center;
+  width: 100px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+main .loader-containter .loader {
+   position: relative; 
+} 
+
+main .loader-containter .loader::before, .loader::after{
+  content: '';
+  width: 1.8em;
+  height: 1.8em;
+  position: absolute;
+  border-radius: 4em;
+}
+
+main .loader-containter .loader::before{
+  background: #347AD4;
+  left: 0;
+  transform: translateX(10px);
+  animation: Moveleft 1s ease infinite;
+}
+
+main .loader-containter .loader::after{
+  background-color: #032a52;
+  right: 0;
+  transform: translateX(-10px);
+  animation: Moveright 1s ease infinite;
+}
+
+@keyframes Moveright{
+  0%{
+    transform: translateX(-10px);
+  }
+  50%{
+    transform: translateX(10px);
+    background: #3479d497;
+  }
+  100%{
+    transform: translateX(-10px);
+  }
+}
+
+@keyframes Moveleft{
+  0%{
+    transform: translateX(10px);
+  }
+  50%{
+    transform: translateX(-10px);
+    background: #032b5285;
+  }
+  100%{
+    transform: translateX(10px);
+  }
+}
+
+.show {
+  display: flex;
+}
+.hidden {
+  display: none;
 }

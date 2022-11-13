@@ -6,28 +6,73 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="./main.css">
+  <link rel="stylesheet" href="./reset.css">
+  <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+      integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"></script>
   <script defer src="./main.js"></script>
 </head>
 <body>
-  <form action="">
-    <input type="search" class='input-search'>
-    <button class='search-btn' type="submit">검색하기</button>
-  </form>
-  <select name="select-year" id="select-year">
-    <!-- value값이 비어있다는 건 전체 option을 선택하는 것 -->
-    <option value="">All year</option> 
-    <option value="2022">2022</option>
-    <option value="2021">2021</option>
-    <option value="2019">2019</option>
-    <option value="2020">2013</option>
-  </select>
-  <!-- 무비 상세 페이지 -->
-  <div class="movie-detail">
-
-  </div>
-  <div class="movies"></div>
-  <div class="actions">
-    <div class="more-btn">More..</div>
-  </div>
+  <header>
+    <div class="inner">
+      <a class='logo' href="/#">
+        <img src="/images/logo.png" alt="">
+      </a>
+      <ul class="gnb">
+        <li class='search-button'><a href="/#">Search</a></li>
+        <li class='movie-button'><a href="/#movie">Movie</a></li>
+      </ul>
+    </div>
+  </header>
+  <main>
+    <div class="display-box">
+      <div class="story-card">
+        <div class="inner">
+          <h1>Unlimited movies, TV, shows, and more.</h1>
+          <h2>Watch anywhere. Cancel anytime.</h2>
+        </div>
+      </div>
+      <div class="search-container">
+        <h3>Ready to watch? Please enter a movie title.</h3>
+        <div class="user-input">
+          <form action="">
+            <input type="search" class='input-search' placeholder='Search for Movies, Series & more'>
+            <select name="select-genre" id="select-genre">
+              <option value="movie">movie</option>
+              <option value="series">series</option>
+              <option value="episode">episode</option>
+            </select>
+            <select name="select-year" id="select-year">
+              <!-- value값이 비어있다는 건 전체 option을 선택하는 것 -->
+              <option value="">All year</option>
+            </select>
+            <select name="select-number" id="select-number">
+              <option value="">10</option>
+              <option value="20">20</option>
+              <option value="30">30</option>
+            </select>
+            <button class='search-btn' type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- movies 출력-->
+    <div class="movies-container">
+      <div class="movies">
+        <p>Search for the movie title!</p>
+      </div>
+      <div class="movies-loading hidden">Loading...</div>
+      <div class="more-btn hidden">More..</div>
+    </div>
+    <!-- 개별 movie 상세 페이지 -->
+    <div class="movie-detail"></div>
+    <div class="actions">
+      <div class="loader-containter hidden">
+        <div class="loader"></div>
+      </div>
+    </div>
+  </main>
 </body>
 </html>
