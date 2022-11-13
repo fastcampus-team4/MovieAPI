@@ -55,7 +55,10 @@ main .search-container {
   display: flex;
   row-gap: 30px;
   flex-direction: column;
+  justify-content: center;
+  margin: auto;
   align-items: center;
+  width: 80%;
 }
 main .search-container h3{
   font-size: 1.5rem;
@@ -66,11 +69,11 @@ main .search-container .user-input {
   display: flex;
   column-gap: 10px;
   justify-content: center;
-  max-width: 1200px;
   margin: auto;
+  width: 100%;
 }
 main .search-container .user-input form input {
-  min-width: 700px;
+  width: 45vw;
   height: 60px;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
@@ -94,15 +97,36 @@ main .search-container .user-input button {
   color: #fff;
   font-size: 1.4vw;
 }
-main .movies {
+.movies-container{
+  position: relative;
+}
+.movies {
+  width: 80%;
+  box-sizing: border-box;
+  margin: 20px auto;
+  border-radius: 4px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-  padding: 50px 10px;
+  padding: 20px 10px;
+  background-color: #e9ecf0;
+  color: #b0b0b0;
+}
+
+.movies-loading{
+  color: #a2a3a3;
+  font-weight: bold;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+}
+.movies p {
+  display: flex;
+  align-items: center;
 }
 main .movies .movie {
-  --size: 300px;
+  --size: 200px;
   width: var(--size);
   height: calc(var(--size) * 3 / 2);
   overflow: hidden;
@@ -111,7 +135,7 @@ main .movies .movie {
 }
 main .movies .movie:hover {
   transform:scale(1.02);
-  transition: transform .5s;
+  transition: all .5s;
   border: 5px solid #ced4da;
 }
 main .movies .movie h1 {
@@ -138,9 +162,6 @@ main .movie-detail .movie-container {
   width: 90%;
   margin: auto;
 }
-main .movie-detail .movie-container .img-box{
-  
-}
 main .movie-detail .movie-container .img-box img{
   width: 35vw;
   border-radius: 10px;
@@ -159,9 +180,6 @@ main .movie-detail .movie-container .movie-content .sum{
 main .movie-detail .movie-container .movie-content .plot{
   line-height: 1.5;
   color:#6c757d;
-}
-main .movie-detail .movie-container .movie-content .ratings{
-  
 }
 main .movie-detail .movie-container .movie-content .ratings h3{
   font-size: 1.7vw;
@@ -190,61 +208,38 @@ main .movie-detail .movie-container .movie-content .ratings .rating:nth-child(3)
   width: 9vw;
 
 }
-main .movie-detail .movie-container .movie-content .actors{
-  
-}
 main .movie-detail .movie-container .movie-content .actors h3{
   font-size: 1.7vw;
   font-weight: bold;
   margin-bottom: 7px;
-}
-main .movie-detail .movie-container .movie-content .actors p{
-  
-}
-main .movie-detail .movie-container .movie-content .director{
-  
 }
 main .movie-detail .movie-container .movie-content .director h3{
   font-size: 1.7vw;
   font-weight: bold;
   margin-bottom: 7px;
 }
-main .movie-detail .movie-container .movie-content .director p{
-  
-}
-main .movie-detail .movie-container .movie-content .production{
-
-}
 main .movie-detail .movie-container .movie-content .production h3{
   font-size: 1.7vw;
   font-weight: bold;
   margin-bottom: 7px;
-}
-main .movie-detail .movie-container .movie-content .production p{
-
-}
-main .movie-detail .movie-container .movie-content .genre{
-  
 }
 main .movie-detail .movie-container .movie-content .genre h3{
   font-size: 1.7vw;
   font-weight: bold;
   margin-bottom: 7px;
 }
-main .movie-detail .movie-container .movie-content .genre p{
-  
-}
 main .actions {
   display: flex;
   justify-content: center;
   padding-bottom: 50px;
 }
-main .actions .more-btn {
+.more-btn {
+  width: 4vw;
   font-size: 1.5vw;
   padding: 10px 20px;
+  margin: auto;
   background-color: #347AD4;
   color: #fff;
-  display: inline-block;
   border-radius: 10px;
   cursor: pointer;
 }
@@ -252,6 +247,10 @@ main .actions .more-btn {
 .loader-containter{
   display: flex;
   justify-content: center;
+  width: 100px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }
 main .loader-containter .loader {
    position: relative; 

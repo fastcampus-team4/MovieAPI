@@ -9,8 +9,9 @@ const selectNumber = document.getElementById("select-number");
 const bodyEl = document.querySelector("body");
 const movieDetailEl = document.querySelector(".movie-detail");
 const loadingEl = document.querySelector(".loader-containter");
+const moviesLoading = document.querySelector(".movies-loading");
 const displayBox = document.querySelector(".display-box");
-let infiniteScroll = false; //저절로 moreBtn을 작동시키는 것 search버튼을 눌렀을 때만 작동되도록
+let infiniteScroll = false;
 
 let inputID = "tt2294629";
 let page = 1;
@@ -18,81 +19,39 @@ let page = 1;
 (async () => {
   const movies = await getMovies();
   page += 1;
-  // 이걸 주석처리하면 빈화면이 나와야 한다고 생각하는데 그렇지 않음. 이유가 뭘까?
-  /* renderMovies(movies);
-  const movieEl = document.querySelector(".movie"); */
 })();
 
-//더보기 버튼 핸들러
-const handleMoreBtn = async () => {
-  //전역변수로 선언하는 것보다 지역변수로 선언하는 것이 더 직관적입니다
-  console.log("selectNumber.value : ", selectNumber.value);
-  page += 1;
-  //page = selectNumber.value || 1;
-  let title = inputSearch.value || "frozen";
-  let year = selectYear.value;
-  let genre = selectGenre.value;
-  console.log("moreBtn 작동", page, title, year, genre);
-  const movies = await getMovies(page, title, year, genre);
-  renderMovies(movies);
-};
-
-//무한 스크롤
-const detectBottom = () => {
-  //스크롤 되어 내려온 위치
-  let scrollTop = document.documentElement.scrollTop;
-  //브라우저에 표시된 높이
-  let innerHeight = window.innerHeight;
-  //페이지 전체 높이
-  let bodyScrollHeight = document.body.scrollHeight;
-
-  if (scrollTop + innerHeight >= bodyScrollHeight) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
-window.addEventListener(
-  "scroll",
-  _.throttle(() => {
-    if (detectBottom() && infiniteScroll) {
-      // 최하단에 도착하면 more 버튼 작동!
-      console.log("more 작동!");
-      handleMoreBtn();
-    }
-  }, 1000)
-);
-
-//더보기 버튼
-moreBtnEl.addEventListener("click", handleMoreBtn);
-
-//반복문으로 영화 연도 생성
+//반복문으로 영화 연도 option 생성
 for (let i = 2022; i >= 1985; i--) {
   const optionEl = document.createElement("option");
   optionEl.textContent = i;
   optionEl.value = i;
   selectYear.append(optionEl);
 }
-//검색 기능
+
+//검색 기능 핸들러
 const handleSearchBtn = async (event) => {
+  event.preventDefault();
+  moviesEl.classList.remove("hidden");
   infiniteScroll = true;
   page = 1;
-  //form의 기본값은 submit이라 페이지가 새로고침 되는 것을 방지하기 위해
-  //event.preventDefault();
 
   moviesEl.innerHTML = "";
-  let title = document.querySelector(".input-search").value || "frozen";
+  let title = inputSearch.value || "frozen";
   let year = selectYear.value || "";
   let genre = selectGenre.value || "movie";
+  moviesLoading.classList.remove("hidden");
+  const movies = await getMovies(page, title, year, genre);
   console.log(
     `검색버튼 작동! title:${title} year:${year} genre:${genre} page:${page}`
   );
-  const movies = await getMovies(page, title, year, genre);
-  console.log(`movies: ${movies}`);
+  moviesLoading.classList.add("hidden");
+  moreBtnEl.classList.remove("hidden");
   renderMovies(movies);
-  //영화 갯수 선택
-  console.log("핸들서치버튼 클릭, selectNumber.value", selectNumber.value);
+
+  inputSearch.value = "";
+
+  //영화 개수 선택
   if (selectNumber.value === 20) {
     handleMoreBtn();
   }
@@ -104,35 +63,7 @@ const handleSearchBtn = async (event) => {
 
 searchBtn.addEventListener("click", handleSearchBtn);
 
-//엔터키
-// inputSearch.addEventListener("keyup", (e) => {
-//   if (e.keyCode === 13) {
-//     e.preventDefault();
-//     handleSearchBtn();
-//   }
-// });
-
-//영화 제목 검색
-/* searchBtn.addEventListener("click", async function (event) {
-  page = 1;
-  //form의 기본값은 submit이라 페이지가 새로고침 되는 것을 방지하기 위해
-  event.preventDefault();
-
-  moviesEl.innerHTML = "";
-  let title = document.querySelector(".input-search").value || "frozen";
-  let year = selectYear.value;
-  let genre = selectGenre.value;
-  const movies = await getMovies(page, title, year, genre);
-  renderMovies(movies);
-  /* if (title === "") {
-    alert("제목을 입력해주세요.");
-  } else {
-    const movies = await getMovies(page, title, year, genre);
-    renderMovies(movies);
-  } */
-//}); */
-
-// 영화 정보 가져오기
+//영화 정보 가져오기
 async function getMovies(page = "", title = "frozen", year = "", genre = "") {
   const url = `https://omdbapi.com/?apikey=7035c60c&s=${title}&page=${page}&y=${year}&type=${genre}`;
   const res = await fetch(url);
@@ -140,15 +71,15 @@ async function getMovies(page = "", title = "frozen", year = "", genre = "") {
   return movies;
 }
 
-// 영화 정보 화면에 출력
+//영화 정보 화면에 출력
 function renderMovies(movies) {
+  console.log("rendermovies", movies);
   if (!movies) {
     // movies === undefined 거나 null
     console.log("movies가 존재하지 않습니다.");
     return;
   } else {
     for (const movie of movies) {
-      //개별 영화가 <a>태그로 감싸져 있기 때문에 영화를 클릭하면 상세 정보 페이지로 이동
       const imdbID = movie.imdbID;
       const aTag = document.createElement("a");
       aTag.setAttribute("href", `/#${imdbID}`);
@@ -168,15 +99,18 @@ function renderMovies(movies) {
       el.append(h1El, imgEl);
       aTag.append(el);
       moviesEl.append(aTag);
+      moreBtnEl.classList.remove("hidden");
     }
   }
 }
 
 //단일 영화 상세 정보 가져오기
 async function getMovieDetail(id = "tt2294629") {
+  loadingEl.classList.remove("hidden");
   const url = `https://omdbapi.com/?apikey=7035c60c&i=${id}&plot=full`;
   const res = await fetch(url);
   const movieInfo = await res.json();
+  loadingEl.classList.add("hidden");
   return movieInfo;
 }
 
@@ -185,26 +119,17 @@ async function renderMovieDetail(inputID) {
   let id;
   let movieInfo;
 
-  //초기화
-  //movieDetailEl.innerHTML = "";
   page = 1;
   displayBox.classList.add("hidden");
-  //스타일을 바꾸면 10개가 있는 걸 안 보이게, 이삭님은 10개의 자리를 빈자리로
+  moviesEl.classList.add("hidden");
   initMovies();
-  // moviesEl.style.display = "none";
-
-  // moreBtnEl.style.display = "none";
-  moreBtnEl.classList.add("hidden");
-  loadingEl.classList.remove("hidden");
 
   if (!inputID) {
-    id = location.hash.slice(1); //#빼고 뒤에 있는 숫자 가져와라
+    id = location.hash.slice(1);
   } else {
     id = inputID;
   }
   movieInfo = await getMovieDetail(id);
-
-  loadingEl.classList.add("hidden");
 
   //이미지 화질 전환
   const imgLarger = movieInfo.Poster.replace("SX300", "SX700");
@@ -261,11 +186,9 @@ async function renderMovieDetail(inputID) {
   movieDetailEl.append(mvCon);
 }
 
-// 해쉬 체인지
+//해쉬 체인지
 window.addEventListener("hashchange", async function () {
-  //renderMovieDetail();
   let hashValue = location.hash.replace("#", "");
-  //해쉬가 바뀌면 기본적으로 모든 것을 초기화
   initMovies();
   initDetails();
   infiniteScroll = false;
@@ -274,16 +197,55 @@ window.addEventListener("hashchange", async function () {
   } else if (hashValue === "search") {
     console.log("hashValue === 'search'");
   } else if (hashValue === "movie") {
+    infiniteScroll = false;
     console.log("hashValue === 'movie'");
-    displayBox.classList.add("hidden");
     if (inputID) {
       inputID = inputID.replaceAll("#", "");
       renderMovieDetail(inputID);
+      console.log("작동하고 있나요");
     }
   } else {
     renderMovieDetail();
   }
 });
+
+//더보기 버튼 핸들러
+const handleMoreBtn = async () => {
+  console.log("selectNumber.value : ", selectNumber.value);
+  page += 1;
+  let title = inputSearch.value || "frozen";
+  let year = selectYear.value;
+  let genre = selectGenre.value;
+  console.log("moreBtn 작동", page, title, year, genre);
+  const movies = await getMovies(page, title, year, genre);
+  renderMovies(movies);
+};
+
+//무한 스크롤
+const detectBottom = () => {
+  let scrollTop = document.documentElement.scrollTop;
+  let innerHeight = window.innerHeight;
+  let bodyScrollHeight = document.body.scrollHeight;
+
+  if (scrollTop + innerHeight >= bodyScrollHeight) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+window.addEventListener(
+  "scroll",
+  _.throttle(() => {
+    if (detectBottom() && infiniteScroll) {
+      console.log("more 작동!");
+      handleMoreBtn();
+    }
+  }, 1000)
+);
+
+//더보기 버튼 활성화
+moreBtnEl.addEventListener("click", handleMoreBtn);
 
 //초기화 함수
 function initMovies() {
